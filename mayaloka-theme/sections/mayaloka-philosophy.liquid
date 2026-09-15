@@ -49,6 +49,18 @@
     line-height: 1.25;
   }
 
+  /* About Us tribute instance: much longer passage than the homepage's short
+     quote, so it needs a smaller size to stay readable and not overwhelm */
+  [id$="__tribute"] .mayaloka-philosophy blockquote {
+    font-size: clamp(18px, 2.4vw, 26px);
+    max-width: 700px;
+    line-height: 1.5;
+  }
+
+  [id$="__tribute"] .mayaloka-philosophy cite {
+    font-size: 11px;
+  }
+
   .mayaloka-philosophy cite {
     font-style: normal;
     font-family: var(--mayaloka-font-label);
