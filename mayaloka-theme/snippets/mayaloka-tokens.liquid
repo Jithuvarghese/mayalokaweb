@@ -151,43 +151,9 @@
     --font-accent--family: 'Cormorant Garamond', serif !important;
   }
 
-  /* ---------- header brand override: real logo image (ML_Primary CLR.png) ---------- */
+  /* ---------- header brand: real logo image now set via settings.logo (ML_Primary_CLR.jpg) ---------- */
   .header-logo {
-    min-width: 220px;
-    height: 64px;
     margin-left: -16px;
-  }
-
-  .header-logo .header-logo__image-container {
-    display: block !important;
-    width: 220px;
-    height: 64px;
-    background-image: url({{ 'mayaloka-logo.png' | asset_url }});
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    font-size: 0;
-    color: transparent;
-    overflow: hidden;
-  }
-
-  @media screen and (max-width: 749px) {
-    .header-logo,
-    .header-logo .header-logo__image-container {
-      width: 150px;
-      height: 44px;
-      min-width: 150px;
-    }
-  }
-
-  /* ---------- footer logo text (image_picker settings.logo not set; matches header treatment) ---------- */
-  .text-block--brand_logo h3 {
-    font-family: var(--mayaloka-font-display);
-    font-style: italic;
-    font-weight: 600;
-    font-size: 30px;
-    color: var(--mayaloka-maroon);
-    margin: 0;
   }
 
   .menu-list__link {

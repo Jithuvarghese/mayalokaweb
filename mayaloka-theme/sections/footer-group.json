@@ -24,13 +24,10 @@
           },
           "blocks": {
             "brand_logo": {
-              "type": "text",
+              "type": "logo",
               "settings": {
-                "text": "<h3>Mayaloka</h3>",
-                "width": "100%",
-                "alignment": "left",
-                "type_preset": "h2",
-                "font": "var(--font-heading--family)"
+                "unit": "pixel",
+                "pixel_height": 72
               }
             },
             "brand_tagline": {
