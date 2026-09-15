@@ -273,8 +273,8 @@
   "order": [
     "mayaloka_hero",
     "mayaloka_ticker",
-    "mayaloka_shop",
     "mayaloka_collections",
+    "mayaloka_shop",
     "mayaloka_philosophy",
     "mayaloka_press",
     "mayaloka_newsletter"
