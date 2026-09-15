@@ -151,11 +151,217 @@
     --font-accent--family: 'Cormorant Garamond', serif !important;
   }
 
-  /* ---------- footer: nudge Shop/About/Customer Care right, closer to the
-     newsletter column, since it was overcorrected too far left initially ---------- */
+  /* ---------- footer: gold panel with editorial spacing matching the Mayaloka reference ---------- */
+  footer {
+    background: var(--mayaloka-gold);
+    color: rgba(36, 30, 25, 0.88);
+  }
+
+  footer .section {
+    background: var(--mayaloka-gold);
+    color: rgba(36, 30, 25, 0.88);
+  }
+
+  footer .section-background {
+    display: none;
+  }
+
+  footer .footer-content {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.25fr) minmax(260px, 1.4fr) minmax(300px, 1.8fr);
+    gap: 0 3.5rem;
+    align-items: start;
+    justify-items: start;
+    padding-block: 2.5rem 2rem;
+  }
+
+  footer .footer-content > * {
+    min-width: 0;
+  }
+
+  footer .footer-content > :nth-child(2) {
+    width: 100%;
+    justify-self: center;
+  }
+
+  footer .footer-content > :nth-child(2) .group-block-content {
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  footer .footer-content > :nth-child(3) {
+    width: 100%;
+    justify-self: end;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  footer .footer-content > :nth-child(3) > .group-block {
+    width: 100%;
+    max-width: 30rem;
+    margin-left: auto;
+  }
+
+  footer .logo-block {
+    width: auto;
+    max-width: max-content;
+    margin-bottom: 1.1rem;
+  }
+
+  footer .logo-block__image-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  footer .logo-block__image {
+    width: auto;
+    max-width: 200px;
+    height: auto;
+    object-fit: contain;
+    filter: none;
+    opacity: 1;
+  }
+
+  footer .group-block-content p,
+  footer .group-block-content h3,
+  footer .group-block-content .rte,
+  footer .group-block-content .paragraph,
+  footer .menu__heading__default,
+  footer .menu__item a,
+  footer .email-signup__button,
+  footer .email-signup__input,
+  footer .email-signup__input::placeholder {
+    color: rgba(36, 30, 25, 0.88);
+  }
+
+  footer .menu {
+    width: auto;
+    margin: 0;
+  }
+
+  footer .menu__heading__default {
+    display: block;
+    margin-bottom: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.3;
+    font-family: var(--mayaloka-font-body);
+  }
+
+  footer .menu__item {
+    margin: 0;
+  }
+
+  footer .menu__item + .menu__item {
+    margin-top: 0.55rem;
+  }
+
+  footer .menu__item a {
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    font-family: var(--mayaloka-font-body);
+  }
+
+  footer .menu__item a:hover {
+    opacity: 0.75;
+  }
+
+  footer .group-block-content p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    max-width: 28rem;
+    font-family: var(--mayaloka-font-body);
+  }
+
+  footer .footer-content > :first-child .group-block-content p {
+    color: #241E19;
+    font-weight: 700;
+  }
+
+  footer .group-block-content h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.7rem;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    font-family: var(--mayaloka-font-display);
+    font-weight: 500;
+  }
+
+  footer .group-block-content h3 em {
+    font-style: italic;
+  }
+
+  footer .email-signup-block {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  footer .email-signup__form {
+    width: 100%;
+  }
+
+  footer .email-signup__input-group {
+    width: 100%;
+    border: 1px solid rgba(36, 30, 25, 0.38);
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  footer .email-signup__input {
+    min-height: 3.1rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    border-radius: 0;
+    padding: 0.9rem 1rem;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    font-family: var(--mayaloka-font-body);
+  }
+
+  footer .email-signup__input::placeholder {
+    opacity: 1;
+    font-style: normal;
+    font-family: var(--mayaloka-font-body);
+  }
+
+  footer .email-signup__button {
+    min-height: 3.1rem;
+    padding: 0.9rem 1.5rem;
+    border: 1px solid rgba(36, 30, 25, 0.38);
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    font-family: var(--mayaloka-font-body);
+  }
+
+  footer .email-signup__button:hover {
+    background: rgba(255, 255, 255, 1);
+  }
+
+  footer .footer-utilities {
+    border-top: 1px solid rgba(36, 30, 25, 0.26);
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+  }
+
   @media screen and (min-width: 990px) {
     footer .footer-content > :nth-child(2) {
-      margin-left: -40px;
+      margin-left: 0;
+    }
+
+    footer .footer-content > :nth-child(4) {
+      margin-left: auto;
     }
   }
 
@@ -165,6 +371,25 @@
   footer .footer-content > :nth-child(2) .menu {
     width: auto;
     flex: 0 0 auto;
+  }
+
+  @media screen and (max-width: 989px) {
+    footer .footer-content {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 2rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    footer .footer-content {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      padding-block: 2rem 1.25rem;
+    }
+
+    footer .footer-content > :nth-child(2) {
+      margin-left: 0;
+    }
   }
 
   /* ---------- header brand: real logo image now set via settings.logo (ML_Primary_CLR.jpg) ---------- */
