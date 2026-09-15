@@ -21,7 +21,7 @@
         "primary_button_label": "Explore the Collection",
         "primary_button_url": "shopify://collections/all",
         "secondary_button_label": "Our Story",
-        "secondary_button_url": "#mayaloka-story",
+        "secondary_button_url": "/pages/about-us",
         "badge_text": "Gold  ✦  Diamond  ✦  Silver  ✦  Antique"
       }
     },
@@ -60,16 +60,6 @@
         "item_4"
       ],
       "settings": {}
-    },
-    "mayaloka_story": {
-      "type": "mayaloka-story",
-      "settings": {
-        "label": "What is Mayaloka",
-        "heading": "A curated world, not just a jewellery box.",
-        "paragraph_1": "Mayaloka is a curated jewellery brand that blends modern design with the nostalgia of old Indian shopping experiences — the fading signboards, the weathered arches, the bazaars that carry stories within them.",
-        "paragraph_2": "Every product, package, and interaction is designed to feel less like a transaction and more like discovering a small treasure worth keeping.",
-        "signature": "— This isn't just a necklace. This is a Mayaloka piece."
-      }
     },
     "mayaloka_collections": {
       "type": "mayaloka-collections",
@@ -283,10 +273,9 @@
   "order": [
     "mayaloka_hero",
     "mayaloka_ticker",
-    "mayaloka_story",
+    "mayaloka_shop",
     "mayaloka_collections",
     "mayaloka_philosophy",
-    "mayaloka_shop",
     "mayaloka_press",
     "mayaloka_newsletter"
   ]
