@@ -18,7 +18,7 @@
   .mayaloka-philosophy {
     background: var(--mayaloka-maroon);
     color: var(--mayaloka-cream-light);
-    padding: 120px 0;
+    padding: 64px 0;
     text-align: center;
     position: relative;
   }
@@ -26,11 +26,11 @@
   .mayaloka-philosophy::before {
     content: "✦";
     position: absolute;
-    top: 44px;
+    top: 26px;
     left: 50%;
     transform: translateX(-50%);
     color: var(--mayaloka-gold-soft);
-    font-size: 26px;
+    font-size: 22px;
   }
 
   .mayaloka-philosophy__wrap {
@@ -47,6 +47,18 @@
     max-width: 820px;
     margin: 0 auto 26px;
     line-height: 1.25;
+  }
+
+  /* About Us tribute instance: much longer passage than the homepage's short
+     quote, so it needs a smaller size to stay readable and not overwhelm */
+  [id$="__tribute"] .mayaloka-philosophy blockquote {
+    font-size: clamp(18px, 2.4vw, 26px);
+    max-width: 700px;
+    line-height: 1.5;
+  }
+
+  [id$="__tribute"] .mayaloka-philosophy cite {
+    font-size: 11px;
   }
 
   .mayaloka-philosophy cite {

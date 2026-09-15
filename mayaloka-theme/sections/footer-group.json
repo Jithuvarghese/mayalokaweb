@@ -1,15 +1,130 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "footer",
   "name": "Footer",
-  "sections": {},
-  "order": []
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "gap": 40,
+        "color_scheme": "scheme-mayaloka-header",
+        "padding-block-start": 64,
+        "padding-block-end": 36
+      },
+      "blocks": {
+        "brand_group": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "gap": 14,
+            "width": "fill",
+            "inherit_color_scheme": true
+          },
+          "blocks": {
+            "brand_logo": {
+              "type": "logo",
+              "settings": {
+                "unit": "pixel",
+                "pixel_height": 72
+              }
+            },
+            "brand_tagline": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Modern treasures, wrapped in old Indian magic.</p>",
+                "width": "100%",
+                "max_width": "narrow",
+                "alignment": "left",
+                "type_preset": "rte"
+              }
+            }
+          },
+          "block_order": ["brand_logo", "brand_tagline"]
+        },
+        "links_group": {
+          "type": "group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "gap": 12,
+            "width": "fill",
+            "inherit_color_scheme": true
+          },
+          "blocks": {
+            "shop_menu": {
+              "type": "menu",
+              "settings": {
+                "menu": "footer-shop",
+                "heading": "Shop"
+              }
+            },
+            "about_menu": {
+              "type": "menu",
+              "settings": {
+                "menu": "footer-about",
+                "heading": "About"
+              }
+            },
+            "care_menu": {
+              "type": "menu",
+              "settings": {
+                "menu": "footer-customer-care",
+                "heading": "Customer Care"
+              }
+            }
+          },
+          "block_order": ["shop_menu", "about_menu", "care_menu"]
+        },
+        "newsletter-group": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "gap": 6,
+            "width": "fill",
+            "inherit_color_scheme": true
+          },
+          "blocks": {
+            "newsletter-heading": {
+              "type": "text",
+              "settings": {
+                "text": "<h3>The Mayaloka <em>Circle.</em></h3>",
+                "width": "100%",
+                "alignment": "left",
+                "type_preset": "h3"
+              }
+            },
+            "newsletter-text": {
+              "type": "text",
+              "settings": {
+                "text": "<p>New arrivals, private offers, and bazaar stories — curated for those who wear Mayaloka.</p>",
+                "width": "100%",
+                "alignment": "left",
+                "type_preset": "rte"
+              }
+            },
+            "newsletter-form": {
+              "type": "email-signup",
+              "settings": {
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": ["newsletter-heading", "newsletter-text", "newsletter-form"]
+        }
+      },
+      "block_order": [
+        "brand_group",
+        "links_group",
+        "newsletter-group"
+      ]
+    }
+  },
+  "order": ["footer"]
 }
