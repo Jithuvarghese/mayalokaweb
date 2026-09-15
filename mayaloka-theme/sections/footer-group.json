@@ -27,7 +27,9 @@
               "type": "logo",
               "settings": {
                 "unit": "pixel",
-                "pixel_height": 72
+                "pixel_height": 72,
+                "font": "heading",
+                "inverse": false
               }
             },
             "brand_tagline": {
