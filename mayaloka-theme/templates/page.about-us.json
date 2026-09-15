@@ -10,32 +10,47 @@
           "type": "story_row",
           "settings": {
             "image_position": "left",
-            "label": "Where It All Began",
-            "heading": "A signboard, a bazaar, a beginning.",
-            "body": "<p>Mayaloka started with a single question: why does discovering jewellery have to feel like just another transaction? We wanted every piece to carry the same wonder as stumbling on a hidden stall in an old Indian bazaar — a little surprising, a little nostalgic, entirely worth keeping.</p><p>What began as a small collection of anti-tarnish pieces, inspired by the fading signboards and weathered arches of old marketplaces, has grown into a curated world where modern design meets the charm of discovery.</p>"
+            "label": "About",
+            "heading": "A little world of beautiful things.",
+            "body": "<p>Launched in October 2026, Mayaloka is an Indian lifestyle brand housing two distinctive product lines — Fashion Jewellery and Scented Candles.</p><p>Old in the way we look. New in the things we make. Thoughtfully created jewellery, gifts and little worlds, inspired by the India we grew up around.</p>"
           }
         },
         "row_2": {
           "type": "story_row",
           "settings": {
             "image_position": "right",
-            "label": "The Inspiration",
-            "heading": "What sparked the journey",
-            "quote": "This brand, and every piece we design, is inspired by the idea that jewellery holds memory. It should feel personal, discovered — never mass-produced.",
-            "cite": "The Mayaloka Team"
+            "label": "A Little World of Beautiful Things",
+            "heading": "Mayaloka means a magical world.",
+            "body": "<p>But for Gowri, it means something a little more. Mayaloka is where old meets new, where everything Gowri grew up around meets everything she is building today. It is a world shaped by nostalgia, creativity, self-expression and the simple joy of finding something beautiful.</p><p>And Loka to her is more than a name. It represents the many worlds she hopes to create. One Loka might hold jewellery. Another might hold candles. Another might become something she hasn't even imagined yet.</p><p>Different products. Different stories. Different little worlds, all living under one roof. And so began Mayaloka.</p>"
           }
         },
         "row_3": {
           "type": "story_row",
           "settings": {
             "image_position": "left",
-            "label": "How It All Began",
-            "heading": "About the Founder",
-            "body": "<p>Mayaloka was founded with a simple belief — that the best jewellery tells a story. What started as a personal search for pieces that felt meaningful, not mass-market, turned into a brand built on discovery, craftsmanship, and a deep respect for the bazaars and signboards of old India.</p>"
+            "label": "Where It Began",
+            "heading": "How her mother taught her to create.",
+            "body": "<p>Lifestyle and fashion have always intrigued Gowri. In some way, they have been a part of her for as long as she can remember. She grew up watching her mother make the simplest things beautiful.</p><p>Her mother taught her how to hold a needle, how to sew a design onto a piece of cloth, how to put colours together and how to make the most beautiful pair of earrings. But more than that, she taught Gowri how to create — how to begin with very little and make something of it, how to trust her hands, her imagination and her instinct.</p><p>She taught Gowri that style didn't have to come from a rulebook. It could be something so personal that it belonged only to you. And without realising it, she was learning much more than craft — she was learning how to make a world of her own.</p>"
+          }
+        },
+        "row_4": {
+          "type": "story_row",
+          "settings": {
+            "image_position": "right",
+            "label": "Old Meets New",
+            "heading": "Old in the way we look. New in the things we make.",
+            "body": "<p>There is a little bit of the old in everything I love. Faded paint on old buildings. Hand-painted signs. Worn textures. Nostalgic colours. The little details I grew up seeing around me. These became the visual language of Mayaloka — shaping our colours, typography, packaging and design.</p><p>And then comes the new: the things we create today. Modern jewellery, candles, gifts and the many worlds still to come. That is where Mayaloka lives.</p>"
           }
         }
       },
-      "block_order": ["row_1", "row_2", "row_3"]
+      "block_order": ["row_1", "row_2", "row_3", "row_4"]
+    },
+    "tribute": {
+      "type": "mayaloka-philosophy",
+      "settings": {
+        "quote": "This is Mayaloka. A tribute to creativity. A tribute to curiosity. And most importantly, a tribute to the woman who taught Gowri how to begin with nothing and create something beautiful. This is Gowri's Mayaloka. Welcome to the world.",
+        "cite": "Gowri, Founder"
+      }
     },
     "craftsmanship": {
       "type": "mayaloka-craftsmanship",
@@ -89,5 +104,5 @@
       "block_order": ["card_1", "card_2", "card_3", "card_4", "card_5"]
     }
   },
-  "order": ["about_story", "craftsmanship"]
+  "order": ["about_story", "tribute", "craftsmanship"]
 }
