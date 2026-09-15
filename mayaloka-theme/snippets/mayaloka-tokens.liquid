@@ -151,6 +151,22 @@
     --font-accent--family: 'Cormorant Garamond', serif !important;
   }
 
+  /* ---------- footer: pull Shop/About/Customer Care left into the free space
+     between the brand column and the newsletter column ---------- */
+  @media screen and (min-width: 990px) {
+    footer .footer-content > :nth-child(2) {
+      margin-left: -140px;
+    }
+  }
+
+  /* Each footer menu (.menu { width: 100% } in blocks/menu.liquid) stretches to fill
+     an equal flex share of the row, forcing "Customer Care" to wrap even though there's
+     room overall. Let each menu size to its own content instead of stretching. */
+  footer .footer-content > :nth-child(2) .menu {
+    width: auto;
+    flex: 0 0 auto;
+  }
+
   /* ---------- header brand: real logo image now set via settings.logo (ML_Primary_CLR.jpg) ---------- */
   .header-logo {
     margin-left: -16px;

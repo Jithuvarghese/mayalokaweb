@@ -50,8 +50,8 @@
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "flex-start",
-            "gap": 20,
-            "width": "fit-content",
+            "gap": 12,
+            "width": "fill",
             "inherit_color_scheme": true
           },
           "blocks": {
