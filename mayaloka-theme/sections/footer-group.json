@@ -46,26 +46,41 @@
           },
           "block_order": ["brand_logo", "brand_tagline"]
         },
-        "shop_menu": {
-          "type": "menu",
+        "links_group": {
+          "type": "group",
           "settings": {
-            "menu": "footer-shop",
-            "heading": "Shop"
-          }
-        },
-        "about_menu": {
-          "type": "menu",
-          "settings": {
-            "menu": "footer-about",
-            "heading": "About"
-          }
-        },
-        "care_menu": {
-          "type": "menu",
-          "settings": {
-            "menu": "footer-customer-care",
-            "heading": "Customer Care"
-          }
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "gap": 20,
+            "width": "fit-content",
+            "inherit_color_scheme": true
+          },
+          "blocks": {
+            "shop_menu": {
+              "type": "menu",
+              "settings": {
+                "menu": "footer-shop",
+                "heading": "Shop"
+              }
+            },
+            "about_menu": {
+              "type": "menu",
+              "settings": {
+                "menu": "footer-about",
+                "heading": "About"
+              }
+            },
+            "care_menu": {
+              "type": "menu",
+              "settings": {
+                "menu": "footer-customer-care",
+                "heading": "Customer Care"
+              }
+            }
+          },
+          "block_order": ["shop_menu", "about_menu", "care_menu"]
         },
         "newsletter-group": {
           "type": "group",
@@ -96,24 +111,21 @@
                 "alignment": "left",
                 "type_preset": "rte"
               }
+            },
+            "newsletter-form": {
+              "type": "email-signup",
+              "settings": {
+                "width": "fill"
+              }
             }
           },
-          "block_order": ["newsletter-heading", "newsletter-text"]
-        },
-        "newsletter-form": {
-          "type": "email-signup",
-          "settings": {
-            "width": "fill"
-          }
+          "block_order": ["newsletter-heading", "newsletter-text", "newsletter-form"]
         }
       },
       "block_order": [
         "brand_group",
-        "shop_menu",
-        "about_menu",
-        "care_menu",
-        "newsletter-group",
-        "newsletter-form"
+        "links_group",
+        "newsletter-group"
       ]
     }
   },
