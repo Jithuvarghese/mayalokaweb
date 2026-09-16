@@ -85,7 +85,7 @@
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
+            "vertical_alignment": "flex-start",
             "gap": 6,
             "width": "fill",
             "inherit_color_scheme": true
