@@ -1,0 +1,136 @@
+{% liquid
+  assign heading = section.settings.heading | default: page.title
+  assign content = section.settings.content | default: page.content
+%}
+
+<section class="mayaloka-policy">
+  <div class="mayaloka-policy__wrap">
+    {% if heading != blank %}
+      <h1 class="mayaloka-policy__heading">{{ heading }}</h1>
+      <div class="mayaloka-flourish maroon" style="margin: 0 0 48px;">
+        <span class="mayaloka-flourish__dash"></span>
+        <span class="mayaloka-flourish__dot"></span>
+        <span class="mayaloka-flourish__dash"></span>
+      </div>
+    {% endif %}
+    {% if content != blank %}
+      <div class="mayaloka-policy__content">{{ content }}</div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .mayaloka-policy {
+    padding: 90px 0 110px;
+    background: var(--mayaloka-cream-light);
+  }
+
+  .mayaloka-policy__wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .mayaloka-policy__heading {
+    font-family: var(--mayaloka-font-display);
+    font-weight: 600;
+    font-size: clamp(32px, 4.4vw, 48px);
+    color: var(--mayaloka-maroon);
+    text-align: center;
+    margin: 0 0 22px;
+  }
+
+  .mayaloka-policy__content {
+    color: var(--mayaloka-ink-soft);
+    font-size: 15.5px;
+    line-height: 1.75;
+  }
+
+  .mayaloka-policy__content h2 {
+    font-family: var(--mayaloka-font-display);
+    font-weight: 600;
+    font-size: clamp(22px, 2.6vw, 28px);
+    color: var(--mayaloka-ink);
+    margin: 44px 0 16px;
+  }
+
+  .mayaloka-policy__content h2:first-child {
+    margin-top: 0;
+  }
+
+  .mayaloka-policy__content h3 {
+    font-family: var(--mayaloka-font-label);
+    font-size: 13px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--mayaloka-maroon);
+    margin: 36px 0 14px;
+  }
+
+  .mayaloka-policy__content p {
+    margin: 0 0 18px;
+  }
+
+  .mayaloka-policy__content ul,
+  .mayaloka-policy__content ol {
+    margin: 0 0 18px;
+    padding-left: 22px;
+  }
+
+  .mayaloka-policy__content li {
+    margin-bottom: 8px;
+  }
+
+  .mayaloka-policy__content li::marker {
+    color: var(--mayaloka-maroon);
+  }
+
+  .mayaloka-policy__content a {
+    color: var(--mayaloka-maroon);
+    text-decoration: underline;
+  }
+
+  .mayaloka-policy__content em {
+    display: block;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(36, 30, 25, .12);
+    font-family: var(--mayaloka-font-label);
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: .04em;
+    color: var(--mayaloka-ink-soft);
+    opacity: .75;
+  }
+
+  .mayaloka-policy__content strong {
+    color: var(--mayaloka-ink);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Mayaloka Policy Page",
+  "tag": "section",
+  "class": "mayaloka-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading override",
+      "info": "Leave blank to use the page's own title."
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content override",
+      "info": "Leave blank to use the page's own content."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mayaloka Policy Page"
+    }
+  ]
+}
+{% endschema %}

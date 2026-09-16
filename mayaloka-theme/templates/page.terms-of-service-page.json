@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "policy": {
+      "type": "mayaloka-policy-page",
+      "settings": {}
+    }
+  },
+  "order": ["policy"]
+}
