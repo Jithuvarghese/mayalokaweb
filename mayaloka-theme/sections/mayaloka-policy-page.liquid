@@ -5,17 +5,19 @@
 
 <section class="mayaloka-policy">
   <div class="mayaloka-policy__wrap">
-    {% if heading != blank %}
-      <h1 class="mayaloka-policy__heading">{{ heading }}</h1>
-      <div class="mayaloka-flourish maroon" style="margin: 0 0 48px;">
-        <span class="mayaloka-flourish__dash"></span>
-        <span class="mayaloka-flourish__dot"></span>
-        <span class="mayaloka-flourish__dash"></span>
-      </div>
-    {% endif %}
-    {% if content != blank %}
-      <div class="mayaloka-policy__content">{{ content }}</div>
-    {% endif %}
+    <div class="mayaloka-policy__frame">
+      {% if heading != blank %}
+        <h1 class="mayaloka-policy__heading">{{ heading }}</h1>
+        <div class="mayaloka-flourish maroon" style="margin: 0 0 40px;">
+          <span class="mayaloka-flourish__dash"></span>
+          <span class="mayaloka-flourish__dot"></span>
+          <span class="mayaloka-flourish__dash"></span>
+        </div>
+      {% endif %}
+      {% if content != blank %}
+        <div class="mayaloka-policy__content">{{ content }}</div>
+      {% endif %}
+    </div>
   </div>
 </section>
 
@@ -26,10 +28,33 @@
   }
 
   .mayaloka-policy__wrap {
-    max-width: 780px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 0 32px;
   }
+
+  .mayaloka-policy__frame {
+    border: 2px solid var(--mayaloka-maroon);
+    outline: 1px solid var(--mayaloka-gold);
+    outline-offset: 8px;
+    background: var(--mayaloka-paper);
+    padding: 56px 48px 60px;
+    position: relative;
+  }
+
+  .mayaloka-policy__frame::before,
+  .mayaloka-policy__frame::after {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--mayaloka-maroon);
+    top: -14px;
+  }
+
+  .mayaloka-policy__frame::before { left: -14px; }
+  .mayaloka-policy__frame::after { right: -14px; }
 
   .mayaloka-policy__heading {
     font-family: var(--mayaloka-font-display);
@@ -105,6 +130,13 @@
 
   .mayaloka-policy__content strong {
     color: var(--mayaloka-ink);
+  }
+
+  @media screen and (max-width: 600px) {
+    .mayaloka-policy__frame {
+      padding: 40px 24px 44px;
+      outline-offset: 6px;
+    }
   }
 {% endstylesheet %}
 
