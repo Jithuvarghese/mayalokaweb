@@ -50,7 +50,7 @@
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "flex-start",
-            "gap": 12,
+            "gap": 20,
             "width": "fill",
             "inherit_color_scheme": true
           },
@@ -59,21 +59,24 @@
               "type": "menu",
               "settings": {
                 "menu": "footer-shop",
-                "heading": "Shop"
+                "heading": "Shop",
+                "menu_spacing": 20
               }
             },
             "about_menu": {
               "type": "menu",
               "settings": {
                 "menu": "footer-about",
-                "heading": "About"
+                "heading": "About",
+                "menu_spacing": 20
               }
             },
             "care_menu": {
               "type": "menu",
               "settings": {
                 "menu": "footer-customer-care",
-                "heading": "Customer Care"
+                "heading": "Customer Care",
+                "menu_spacing": 20
               }
             }
           },
@@ -86,7 +89,7 @@
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "flex-start",
-            "gap": 6,
+            "gap": 20,
             "width": "fill",
             "inherit_color_scheme": true
           },
