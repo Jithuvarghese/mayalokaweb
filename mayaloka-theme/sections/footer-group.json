@@ -29,7 +29,8 @@
                 "unit": "pixel",
                 "pixel_height": 72,
                 "font": "heading",
-                "inverse": false
+                "inverse": false,
+                "use_footer_asset": true
               }
             },
             "brand_tagline": {
