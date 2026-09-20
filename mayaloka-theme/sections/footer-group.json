@@ -27,7 +27,10 @@
               "type": "logo",
               "settings": {
                 "unit": "pixel",
-                "pixel_height": 96
+                "pixel_height": 96,
+                "font": "heading",
+                "inverse": false,
+                "use_footer_asset": true
               }
             },
             "brand_tagline": {
