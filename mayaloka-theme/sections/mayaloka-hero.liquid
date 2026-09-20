@@ -22,6 +22,36 @@
   {% endif %}
   <div class="mayaloka-hero__wrap">
     <div class="mayaloka-hero__frame">
+      <svg class="mayaloka-hero__frame-svg" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <defs>
+          <pattern id="mayaloka-hero-stripes" width="4" height="4" patternUnits="userSpaceOnUse">
+            <rect width="4" height="2" fill="rgba(36, 30, 25, .015)" />
+          </pattern>
+          <path id="mayaloka-hero-cartouche" d="M 160 90
+            L 360 90
+            C 424 90 432 58 470 36
+            C 510 12 552 0 600 0
+            C 648 0 690 12 730 36
+            C 768 58 776 90 840 90
+            L 1040 90
+            C 1096 90 1114 102 1132 126
+            C 1162 164 1200 150 1200 214
+            L 1200 476
+            C 1200 540 1162 526 1132 564
+            C 1114 588 1096 600 1040 600
+            L 160 600
+            C 104 600 86 588 68 564
+            C 38 526 0 540 0 476
+            L 0 214
+            C 0 150 38 164 68 126
+            C 86 102 104 90 160 90
+            Z" />
+        </defs>
+        <use href="#mayaloka-hero-cartouche" class="mayaloka-hero__frame-fill" />
+        <use href="#mayaloka-hero-cartouche" class="mayaloka-hero__frame-texture" />
+        <use href="#mayaloka-hero-cartouche" class="mayaloka-hero__frame-inner" transform="translate(600,300) scale(1.0133) translate(-600,-300)" />
+        <use href="#mayaloka-hero-cartouche" class="mayaloka-hero__frame-outer" />
+      </svg>
       {% if kicker != blank %}
         <div class="mayaloka-hero__kicker">{{ kicker }}</div>
       {% endif %}
@@ -102,18 +132,58 @@
   .mayaloka-hero__frame {
     max-width: 920px;
     margin: 0 auto;
-    border: 2px solid var(--mayaloka-maroon);
-    outline: 1px solid var(--mayaloka-gold);
-    outline-offset: 8px;
-    padding: 56px 40px 52px;
+    padding: 104px 40px 34px;
     position: relative;
-    background: repeating-linear-gradient(0deg, rgba(36, 30, 25, .015) 0 2px, transparent 2px 4px);
   }
 
-  .mayaloka-hero--image .mayaloka-hero__frame {
-    border-color: rgba(248, 241, 222, .8);
-    outline-color: rgba(248, 241, 222, .55);
-    background: rgba(36, 30, 25, .3);
+  .mayaloka-hero__frame-svg {
+    position: absolute;
+    inset: -14px;
+    width: calc(100% + 28px);
+    height: calc(100% + 28px);
+    overflow: visible;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .mayaloka-hero__frame-fill {
+    fill: var(--mayaloka-cream-light);
+  }
+
+  .mayaloka-hero__frame-texture {
+    fill: url(#mayaloka-hero-stripes);
+  }
+
+  .mayaloka-hero__frame-outer,
+  .mayaloka-hero__frame-inner {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .mayaloka-hero__frame-outer {
+    stroke: var(--mayaloka-maroon);
+    stroke-width: 2;
+  }
+
+  .mayaloka-hero__frame-inner {
+    stroke: var(--mayaloka-gold);
+    stroke-width: 1;
+  }
+
+  .mayaloka-hero--image .mayaloka-hero__frame-fill {
+    fill: rgba(36, 30, 25, .3);
+  }
+
+  .mayaloka-hero--image .mayaloka-hero__frame-texture {
+    display: none;
+  }
+
+  .mayaloka-hero--image .mayaloka-hero__frame-outer {
+    stroke: rgba(248, 241, 222, .8);
+  }
+
+  .mayaloka-hero--image .mayaloka-hero__frame-inner {
+    stroke: rgba(248, 241, 222, .55);
   }
 
   .mayaloka-hero--image .mayaloka-hero__kicker,
@@ -133,20 +203,6 @@
     border-color: var(--mayaloka-cream-light);
     color: var(--mayaloka-cream-light);
   }
-
-  .mayaloka-hero__frame::before,
-  .mayaloka-hero__frame::after {
-    content: "";
-    position: absolute;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: var(--mayaloka-maroon);
-    top: -14px;
-  }
-
-  .mayaloka-hero__frame::before { left: -14px; }
-  .mayaloka-hero__frame::after { right: -14px; }
 
   .mayaloka-hero__kicker {
     font-family: var(--mayaloka-font-label);
@@ -202,6 +258,22 @@
     text-transform: uppercase;
   }
 
+  @media (max-width: 989px) {
+    .mayaloka-hero__frame {
+      padding: 132px 32px 62px;
+    }
+
+    .mayaloka-hero__frame-svg {
+      inset: -10px;
+      width: calc(100% + 20px);
+      height: calc(100% + 20px);
+    }
+
+    .mayaloka-hero__frame::before {
+      inset: -10px;
+    }
+  }
+
   @media (max-width: 749px) {
     .mayaloka-hero--image {
       min-height: 640px;
@@ -225,6 +297,20 @@
 
     .mayaloka-hero__overlay {
       background: rgba(20, 16, 13, .55);
+    }
+
+    .mayaloka-hero__frame {
+      padding: 140px 22px 78px;
+    }
+
+    .mayaloka-hero__frame-svg {
+      inset: -8px;
+      width: calc(100% + 16px);
+      height: calc(100% + 16px);
+    }
+
+    .mayaloka-hero__frame::before {
+      inset: -8px;
     }
   }
 {% endstylesheet %}
