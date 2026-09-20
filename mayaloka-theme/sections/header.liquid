@@ -650,8 +650,12 @@
   }
 
   .header[data-sticky-state] {
-    transition: opacity var(--animation-speed) var(--animation-easing);
+    transition:
+      opacity 360ms var(--ease-out-cubic),
+      transform 360ms var(--ease-out-cubic);
     opacity: 1;
+    transform: translateY(0);
+    will-change: opacity, transform;
   }
 
   .header[data-sticky-state='active'] {
@@ -666,6 +670,8 @@
 
   .header[data-sticky-state='idle'] {
     opacity: 0;
+    transform: translateY(-12px);
+    pointer-events: none;
   }
 
   /* ================================

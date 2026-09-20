@@ -1,18 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const els = document.querySelectorAll('.mayaloka-section .mayaloka-reveal, .mayaloka-reveal');
+  const els = document.querySelectorAll('.mayaloka-section, .mayaloka-section .mayaloka-reveal, .mayaloka-reveal');
   if (!els.length) return;
 
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
+        entry.target.classList.toggle('is-visible', entry.isIntersecting);
       });
     },
     { threshold: 0.15 }
   );
 
-  els.forEach((el) => io.observe(el));
+  els.forEach((el) => {
+    if (el.classList.contains('mayaloka-section')) {
+      el.classList.add('mayaloka-reveal');
+    }
+
+    io.observe(el);
+  });
 });
