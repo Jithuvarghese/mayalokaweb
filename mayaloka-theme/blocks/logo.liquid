@@ -4,7 +4,9 @@
   assign block_settings = block.settings
   assign image = settings.logo
 
-  if block_settings.inverse and settings.logo_inverse
+  if block_settings.use_footer_asset
+    assign image = blank
+  elsif block_settings.inverse and settings.logo_inverse
     assign image = settings.logo_inverse
   endif
 %}
@@ -59,7 +61,17 @@
   "
   {{ block.shopify_attributes }}
 >
-  {% if logo_image %}
+  {% if block_settings.use_footer_asset %}
+    <div class="logo-block__image-wrapper">
+      <img
+        src="{{ 'footer.png' | asset_url }}"
+        alt="{{ shop.name }}"
+        class="logo-block__image"
+        width="400"
+        height="120"
+      >
+    </div>
+  {% elsif logo_image %}
     <div class="logo-block__image-wrapper">
       {{ logo_image }}
     </div>
@@ -105,6 +117,12 @@
   "name": "t:names.logo",
   "tag": null,
   "settings": [
+    {
+      "type": "checkbox",
+      "label": "Use footer image",
+      "id": "use_footer_asset",
+      "default": false
+    },
     {
       "type": "checkbox",
       "label": "t:settings.use_inverse_logo",
