@@ -67,9 +67,9 @@
         "card_1": {
           "type": "collection_card",
           "settings": {
-            "collection": "",
+            "collection": "necklace",
             "product": "",
-            "title": "Heirloom Reimagined",
+            "title": "Necklace",
             "description": "Vintage motifs, modern proportions.",
             "stamp": "New"
           }
@@ -77,9 +77,9 @@
         "card_2": {
           "type": "collection_card",
           "settings": {
-            "collection": "",
+            "collection": "earrings",
             "product": "",
-            "title": "Antique Gold",
+            "title": "Earrings",
             "description": "Warm, weathered, unmistakably rich.",
             "stamp": "Bestseller"
           }
@@ -87,9 +87,9 @@
         "card_3": {
           "type": "collection_card",
           "settings": {
-            "collection": "",
+            "collection": "rings",
             "product": "",
-            "title": "The Daily Wear",
+            "title": "Rings",
             "description": "Anti-tarnish pieces you'll never take off.",
             "stamp": "Everyday"
           }
@@ -97,9 +97,9 @@
         "card_4": {
           "type": "collection_card",
           "settings": {
-            "collection": "",
+            "collection": "bracelets",
             "product": "",
-            "title": "The Bazaar Find",
+            "title": "Bracelets",
             "description": "One-of-a-kind statement pieces.",
             "stamp": "Limited"
           }
