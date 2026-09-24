@@ -1,0 +1,173 @@
+{% liquid
+  assign kicker = closest.collection.description | strip_html
+%}
+
+<section class="mayaloka-coll-heading">
+  <div class="mayaloka-coll-heading__wrap">
+    <div class="mayaloka-coll-heading__frame">
+      <svg class="mayaloka-coll-heading__frame-svg" viewBox="0 0 1200 420" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <defs>
+          <path id="mayaloka-coll-cartouche" d="M 160 66
+            L 360 66
+            C 424 66 432 40 470 22
+            C 510 4 552 0 600 0
+            C 648 0 690 4 730 22
+            C 768 40 776 66 840 66
+            L 1040 66
+            C 1096 66 1114 76 1132 96
+            C 1162 128 1200 118 1200 162
+            L 1200 336
+            C 1200 380 1162 370 1132 402
+            C 1114 422 1096 420 1040 420
+            L 160 420
+            C 104 420 86 422 68 402
+            C 38 370 0 380 0 336
+            L 0 162
+            C 0 118 38 128 68 96
+            C 86 76 104 66 160 66
+            Z" />
+        </defs>
+        <use href="#mayaloka-coll-cartouche" class="mayaloka-coll-heading__frame-fill" />
+        <use href="#mayaloka-coll-cartouche" class="mayaloka-coll-heading__frame-inner" transform="translate(600,210) scale(1.0133) translate(-600,-210)" />
+        <use href="#mayaloka-coll-cartouche" class="mayaloka-coll-heading__frame-outer" />
+      </svg>
+      {% if kicker != blank %}
+        <div class="mayaloka-coll-heading__kicker">{{ kicker }}</div>
+      {% endif %}
+      <h1 class="mayaloka-coll-heading__title">
+        <span class="mayaloka-flourish__dash"></span>
+        <span class="mayaloka-flourish__dot"></span>
+        {{ closest.collection.title }}
+        <span class="mayaloka-flourish__dot"></span>
+        <span class="mayaloka-flourish__dash"></span>
+      </h1>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .mayaloka-coll-heading {
+    position: relative;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(166, 57, 44, .05), transparent 60%),
+      var(--mayaloka-cream);
+    padding: 28px 0 20px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .mayaloka-coll-heading__wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .mayaloka-coll-heading__frame {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 34px 20px 22px;
+    position: relative;
+  }
+
+  .mayaloka-coll-heading__frame-svg {
+    position: absolute;
+    inset: -6px;
+    width: calc(100% + 12px);
+    height: calc(100% + 12px);
+    overflow: visible;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .mayaloka-coll-heading__frame-fill {
+    fill: var(--mayaloka-cream-light);
+  }
+
+  .mayaloka-coll-heading__frame-outer,
+  .mayaloka-coll-heading__frame-inner {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .mayaloka-coll-heading__frame-outer {
+    stroke: var(--mayaloka-maroon);
+    stroke-width: 2;
+  }
+
+  .mayaloka-coll-heading__frame-inner {
+    stroke: var(--mayaloka-gold);
+    stroke-width: 1;
+  }
+
+  .mayaloka-coll-heading__kicker {
+    font-family: var(--mayaloka-font-label);
+    font-size: 10px;
+    letter-spacing: .18em;
+    color: var(--mayaloka-maroon);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .mayaloka-coll-heading__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--mayaloka-font-display);
+    font-weight: 600;
+    font-size: clamp(20px, 3vw, 30px);
+    line-height: 1.05;
+    color: var(--mayaloka-maroon);
+    margin: 0;
+  }
+
+  @media (max-width: 420px) {
+    .mayaloka-coll-heading__title .mayaloka-flourish__dash {
+      width: 18px;
+    }
+  }
+
+  .mayaloka-coll-heading .mayaloka-flourish {
+    margin: 10px auto 0;
+  }
+
+  @media (max-width: 989px) {
+    .mayaloka-coll-heading__frame {
+      padding: 38px 16px 20px;
+    }
+
+    .mayaloka-coll-heading__frame-svg {
+      inset: -5px;
+      width: calc(100% + 10px);
+      height: calc(100% + 10px);
+    }
+  }
+
+  @media (max-width: 749px) {
+    .mayaloka-coll-heading__frame {
+      padding: 40px 12px 18px;
+    }
+
+    .mayaloka-coll-heading__frame-svg {
+      inset: -4px;
+      width: calc(100% + 8px);
+      height: calc(100% + 8px);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collection Heading",
+  "tag": "section",
+  "class": "mayaloka-section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Collection Heading"
+    }
+  ]
+}
+{% endschema %}
