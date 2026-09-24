@@ -105,6 +105,11 @@
         <h2 class="main-collection-grid__empty-title h2">
           {{ 'content.no_products_found' | t }}
         </h2>
+        <div class="mayaloka-flourish">
+          <span class="mayaloka-flourish__dash"></span>
+          <span class="mayaloka-flourish__dot"></span>
+          <span class="mayaloka-flourish__dash"></span>
+        </div>
         <p>
           {{ 'content.use_fewer_filters_html' | t: link: collection.url, class: 'main-collection-grid__empty-link' }}
         </p>
@@ -214,10 +219,29 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: var(--padding-sm);
+    gap: 10px;
   }
 
   .main-collection-grid__empty-title {
     margin: 0;
+    font-family: var(--mayaloka-font-display, inherit);
+    font-weight: 600;
+    color: var(--mayaloka-maroon, inherit);
+  }
+
+  .main-collection-grid__empty p {
+    color: var(--mayaloka-ink-soft, inherit);
+    font-size: 15px;
+  }
+
+  .main-collection-grid__empty-link {
+    color: var(--mayaloka-maroon, inherit);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .main-collection-grid__empty-link:hover {
+    color: var(--mayaloka-gold, inherit);
   }
 {% endstylesheet %}
