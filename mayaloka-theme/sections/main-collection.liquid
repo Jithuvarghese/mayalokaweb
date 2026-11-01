@@ -63,6 +63,16 @@
             {% # theme-check-enable %}
           </li>
         {% endfor %}
+
+        {% # Preview-only Mombatti candles (snippets/mombatti-demo-candle.liquid); remove once they are real products. %}
+        {% if collection.handle == 'mombatti' and paginate.current_page == paginate.pages %}
+          {% assign demo_keys = 'lotus-pond,strawberry-jam,chai-parle-g,love-letter,note-from-god,happy-birthday,jack-daniel-whiskey,iced-matcha' | split: ',' %}
+          {% for demo_key in demo_keys %}
+            <li class="product-grid__item mombatti-grid-item" data-page="{{ paginate.current_page }}">
+              {% render 'mombatti-demo-candle', key: demo_key, mode: 'card' %}
+            </li>
+          {% endfor %}
+        {% endif %}
       {% endcapture %}
 
       {% render 'product-grid',
