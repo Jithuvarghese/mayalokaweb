@@ -1,0 +1,154 @@
+{%- comment -%}
+  Preview-only Mombatti candle showcase, built from the client's product sheet.
+  Used while the "mombatti" collection has no real products; delete this snippet,
+  sections/mayaloka-mombatti-demo.liquid, templates/index.mombatti-*.json and
+  assets/mombatti-*.jpg once the candles exist as Shopify products.
+
+  Accepts:
+  - key: candle handle, e.g. 'lotus-pond'
+  - mode: 'card' (default) or 'detail'
+  - all_keys: comma-separated keys, used for "More from Mombatti" in detail mode
+{%- endcomment -%}
+
+{%- liquid
+  assign title = ''
+  case key
+    when 'lotus-pond'
+      assign title = 'Lotus Pond Candle'
+      assign price = 55000
+      assign images = 4
+      assign description = 'Enjoy the calming beauty of pink lotus-shaped candles floating in a brass bowl.'
+      assign details = 'Material: Soy wax|Fragrance: Bubblegum|Vessel: Brass bowl|Weight: 250 grams|Height: 1.8 inches, Width: 4 inches|Wicks: Two'
+    when 'strawberry-jam'
+      assign title = 'Strawberry Jam Candle'
+      assign price = 60000
+      assign images = 5
+      assign description = 'The Strawberry Jam Candle was inspired by the cute packaging of homemade jams. To give it a more realistic appearance, soy wax strawberry chunks are added to make the candle look super cute. The candle also has a gingham cloth to add a homemade, warm vibe.'
+      assign details = 'Material: Gel wax and soy wax|Fragrance: Strawberry|Vessel: Glass jar|Weight: 275 grams|Height: 3.5 inches|Wicks: One'
+    when 'chai-parle-g'
+      assign title = 'Chai and Parle-G Biscuit Candle'
+      assign price = 35000
+      assign images = 5
+      assign description = "A nostalgic cup of masala chai paired with the comfort of a Parle-G biscuit. Inspired by India's favourite chai-time ritual, this candle brings warmth, spice and everything nice. Add a little whimsy to your space with our Chai and Parle-G Biscuit Candle."
+      assign details = 'Material: Soy wax|Fragrance: Spice Tree|Notes: Cinnamon and cardamom|Vessel: Glass jar|Weight: 175 grams|Height: 3.3 inches|Wicks: One'
+    when 'love-letter'
+      assign title = 'Fortune Series: Love Letter Candle'
+      assign price = 50000
+      assign images = 5
+      assign description = 'A Love Letter candle holds a secret love note within. As the candle burns, a hidden message slowly reveals itself, making every moment feel a little more romantic and magical. A thoughtful gift for someone special, or yourself.'
+      assign details = 'Material: Soy wax, special message-reveal paper|Fragrance: Rose|Vessel: Glass jar|Weight: 350 grams|Height: 3.5 inches|Wicks: Two'
+    when 'note-from-god'
+      assign title = 'Fortune Series: Note from God'
+      assign price = 50000
+      assign images = 4
+      assign description = 'Sometimes, all we need is a sign. This special candle reveals a hidden message as it burns, offering a gentle reminder of hope, faith and the magic of being guided when we need it most.'
+      assign details = 'Material: Soy wax, special message-reveal paper|Fragrance: Honey Vanilla|Vessel: Glass jar|Weight: 350 grams|Height: 3.5 inches|Wicks: Two'
+    when 'happy-birthday'
+      assign title = 'Fortune Series: Happy Birthday Candle'
+      assign price = 50000
+      assign images = 5
+      assign description = 'Make their birthday extra special with a candle that holds a surprise. As the wax melts, a hidden birthday message appears, turning a simple candle into a memorable little moment of joy.'
+      assign details = 'Material: Soy wax, special message-reveal paper|Fragrance: Milky Vanilla|Vessel: Glass jar|Weight: 350 grams|Height: 3.5 inches|Wicks: Two'
+    when 'jack-daniel-whiskey'
+      assign title = 'Jack Daniel Whiskey Candle'
+      assign price = 77000
+      assign images = 5
+      assign description = 'Inspired by a classic whiskey glass, this candle features rich amber tones and realistic gel-wax ice cubes for a playful, statement-worthy finish.'
+      assign details = 'Material: Gel wax, including gel-wax ice cubes|Fragrance: Meditation|Notes: Vanilla, milky accords and pistachio|Vessel: Glass cup|Weight: 390 grams|Height: 3.5 inches|Wicks: One'
+    when 'iced-matcha'
+      assign title = 'Iced Matcha Candle'
+      assign price = 60000
+      assign images = 5
+      assign description = 'The Iced Matcha candle brings you the experience of having matcha directly from Japan; you might be transported into being a farmer in the matcha tea fields of Japan. A very vibrant, deep green candle that will make your space pop.'
+      assign details = 'Material: Soy wax and gel wax|Fragrance: Meditation|Notes: Vanilla, milky accords and pistachio|Vessel: Glass cup|Weight: 390 grams|Height: 3.5 inches|Wicks: One'
+  endcase
+
+  assign url = routes.root_url | append: '?view=mombatti-' | append: key | replace: '//', '/'
+  assign image_prefix = 'mombatti-' | append: key | append: '-'
+  assign main_image = image_prefix | append: '1.jpg' | asset_url
+%}
+
+{%- if title != blank -%}
+  {%- if mode == 'detail' -%}
+    <div class="mombatti-pdp">
+      <nav class="mombatti-pdp__crumbs" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span aria-hidden="true">/</span>
+        <span>Mombatti</span>
+        <span aria-hidden="true">/</span>
+        <span>{{ title }}</span>
+      </nav>
+
+      <div class="mombatti-pdp__grid">
+        <div class="mombatti-pdp__gallery" data-mombatti-gallery>
+          <div class="mombatti-pdp__main">
+            <img src="{{ main_image }}" alt="{{ title | escape }}" width="1400" height="1400" data-mombatti-main>
+          </div>
+          <div class="mombatti-pdp__thumbs">
+            {%- for i in (1..images) -%}
+              {%- assign src = image_prefix | append: i | append: '.jpg' | asset_url -%}
+              <button
+                type="button"
+                class="mombatti-pdp__thumb{% if forloop.first %} is-active{% endif %}"
+                data-src="{{ src }}"
+                aria-label="Show image {{ i }} of {{ images }}"
+              >
+                <img src="{{ src }}" alt="" loading="lazy" width="140" height="140">
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="mombatti-pdp__info">
+          <span class="mayaloka-label">Mombatti</span>
+          <h1 class="mombatti-pdp__title">{{ title }}</h1>
+          <p class="mombatti-pdp__price">{{ price | money }}</p>
+          <p class="mombatti-pdp__desc">{{ description }}</p>
+
+          <button type="button" class="mombatti-pdp__cta" disabled>Add to cart</button>
+          <p class="mombatti-pdp__note">Preview: ordering opens at launch.</p>
+
+          <div class="mombatti-pdp__details">
+            <h2>Material &amp; details</h2>
+            <ul>
+              {%- assign lines = details | split: '|' -%}
+              {%- for line in lines -%}
+                {%- assign parts = line | split: ': ' -%}
+                <li><span>{{ parts[0] }}</span>{{ parts[1] }}</li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {%- if all_keys != blank -%}
+        <div class="mombatti-pdp__more">
+          <div class="mayaloka-sec-head">
+            <span class="mayaloka-label">Mombatti</span>
+            <h2>More candles</h2>
+          </div>
+          <div class="mombatti-pdp__more-grid">
+            {%- assign other_keys = all_keys | split: ',' -%}
+            {%- for other in other_keys -%}
+              {%- assign other = other | strip -%}
+              {%- if other != key -%}
+                {%- render 'mombatti-demo-candle', key: other, mode: 'card' -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    <a href="{{ url }}" class="mayaloka-mombatti__card">
+      <div class="mayaloka-mombatti__img">
+        <img src="{{ main_image }}" alt="{{ title | escape }}" class="mayaloka-mombatti__photo" loading="lazy" width="1400" height="1400">
+      </div>
+      <div class="mayaloka-mombatti__info">
+        <span class="mayaloka-mombatti__brand">Mombatti</span>
+        <h3>{{ title }}</h3>
+        <div class="mayaloka-mombatti__price">{{ price | money }}</div>
+      </div>
+    </a>
+  {%- endif -%}
+{%- endif -%}

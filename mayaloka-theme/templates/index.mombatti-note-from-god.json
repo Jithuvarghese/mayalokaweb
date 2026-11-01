@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "mayaloka-mombatti-demo",
+      "settings": {
+        "candle": "note-from-god"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

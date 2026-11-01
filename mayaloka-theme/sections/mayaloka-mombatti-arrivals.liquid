@@ -21,7 +21,17 @@
       {% endif %}
     </div>
 
-    {% if collection != blank and collection.products.size > 0 %}
+    {% liquid
+      assign has_products = false
+      if collection != blank and collection.products.size > 0
+        assign has_products = true
+      endif
+      # Preview-only: sheet-based candles (snippets/mombatti-demo-candle.liquid) shown after
+      # the collection's real products until they are created in Shopify.
+      assign demo_keys = section.settings.demo_candles | split: ','
+    %}
+
+    {% if has_products or demo_keys.size > 0 %}
       <div class="mayaloka-mombatti__carousel" id="{{ section_id }}">
         <button
           type="button"
@@ -53,6 +63,11 @@
                 </div>
               </div>
             </a>
+          {% endfor %}
+
+          {% for key in demo_keys %}
+            {% assign demo_key = key | strip %}
+            {% render 'mombatti-demo-candle', key: demo_key, mode: 'card' %}
           {% endfor %}
         </div>
 
@@ -259,6 +274,13 @@
       "max": 16,
       "step": 1,
       "default": 8
+    },
+    {
+      "type": "text",
+      "id": "demo_candles",
+      "label": "Preview candles",
+      "info": "Preview cards shown after the collection's products. Comma-separated keys from snippets/mombatti-demo-candle.liquid. Clear to hide.",
+      "default": "lotus-pond,strawberry-jam,chai-parle-g,love-letter,note-from-god,happy-birthday,jack-daniel-whiskey,iced-matcha"
     }
   ],
   "presets": [
