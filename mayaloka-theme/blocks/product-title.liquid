@@ -6,11 +6,19 @@
   {% render 'text', fallback_text: product_title, block: block %}
 {% else %}
   {% assign product_title = '<p role="heading" aria-level="3">' | append: closest.product.title | append: '</p>' %}
+  {% assign is_mombatti_product = false %}
+  {% for product_collection in closest.product.collections %}
+    {% if product_collection.handle == 'mombatti' %}
+      {% assign is_mombatti_product = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
   <a
-    class="contents user-select-text"
+    class="contents user-select-text{% if is_mombatti_product %} mayaloka-mombatti-card-title{% endif %}"
     ref="productTitleLink"
     href="{{ closest.product.selected_or_first_available_variant.url }}"
   >
+    {% if is_mombatti_product %}<span class="mayaloka-card-brand">Mombatti</span>{% endif %}
     {% render 'text', fallback_text: product_title, block: block %}
   </a>
 {% endif %}

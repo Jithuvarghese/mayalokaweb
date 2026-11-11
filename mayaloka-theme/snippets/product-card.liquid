@@ -22,6 +22,13 @@
 
 {% liquid
   assign has_quick_add = false
+  assign is_mombatti_product = false
+  for product_collection in product.collections
+    if product_collection.handle == 'mombatti'
+      assign is_mombatti_product = true
+      break
+    endif
+  endfor
   if settings.quick_add and product.available
     assign has_quick_add = true
   endif
@@ -55,7 +62,7 @@
 %}
 
 <product-card
-  class="product-card size-style"
+  class="product-card size-style{% if is_mombatti_product %} mayaloka-mombatti-product-card{% endif %}"
   style="{% render 'size-style', settings: block_settings %}"
   data-product-id="{{ product.id }}"
   id="product-card-{{ block.id }}"

@@ -70,6 +70,13 @@
     assign price_min = price_min | money
     assign price_max = price_max | money
   endif
+
+  if template.name == 'product'
+    assign price = price | replace: 'Rs.', '₹'
+    assign compare_at_price = compare_at_price | replace: 'Rs.', '₹'
+    assign price_min = price_min | replace: 'Rs.', '₹'
+    assign price_max = price_max | replace: 'Rs.', '₹'
+  endif
 -%}
 
 <div ref="priceContainer">

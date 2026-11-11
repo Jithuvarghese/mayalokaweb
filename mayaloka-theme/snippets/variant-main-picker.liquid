@@ -39,6 +39,24 @@
         {%- liquid
           assign swatch_count = product_option.values | map: 'swatch' | compact | size
           assign variant_style = block_settings.variant_style
+          assign variant_media_ids = ''
+
+          for option_value in product_option.values
+            assign option_media = option_value.variant.featured_media
+            if option_media == blank and option_value.product_url
+              assign option_media = option_value.variant.product.featured_media
+            endif
+            if option_media != blank
+              assign variant_media_ids = variant_media_ids | append: option_media.id | append: ','
+            endif
+          endfor
+
+          assign variant_media_ids = variant_media_ids | split: ',' | uniq
+          assign has_variant_image_swatches = false
+          if variant_media_ids.size > 1
+            assign has_variant_image_swatches = true
+            assign variant_style = 'swatch'
+          endif
 
           if swatch_count > 0 and block_settings.show_swatches
             if block_settings.variant_style == 'dropdown'
@@ -71,7 +89,7 @@
         {%- elsif variant_style == 'swatch' or block_settings.variant_style == 'buttons' -%}
           {%- assign fieldset_index = forloop.index0 -%}
           <fieldset
-            class="variant-option variant-option--buttons{% if variant_style == 'swatch' %} variant-option--swatches{% else %} variant-option--{{ settings.variant_button_width }}{% endif %}"
+            class="variant-option variant-option--buttons{% if variant_style == 'swatch' %} variant-option--swatches{% else %} variant-option--{{ settings.variant_button_width }}{% endif %}{% if has_variant_image_swatches %} variant-option--image-swatches{% endif %}"
             data-fieldset-index="{{ fieldset_index }}"
             ref="fieldsets[]"
             {{ option_id_attribute }}
@@ -128,7 +146,8 @@
                   {% render 'swatch',
                     swatch: product_option_value.swatch,
                     variant_image: featured_media,
-                    mode: 'unscaled'
+                    mode: 'unscaled',
+                    force_variant_image: has_variant_image_swatches
                   %}
                 {% else %}
                   {% if product_option_value.available == true %}

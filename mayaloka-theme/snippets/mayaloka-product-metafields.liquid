@@ -1,0 +1,58 @@
+{%- liquid
+  assign weight_and_height = product.metafields.custom.weight_and_height.value | default: product.metafields.custom.weight_and_height
+  assign total_burn_time = product.metafields.custom.total_burn_time.value | default: product.metafields.custom.total_burn_time
+  assign material_and_care = product.metafields.custom.product_material_and_care.value | default: product.metafields.custom.product_material_and_care
+  assign has_product_details = false
+  assign has_description = false
+  if product.description != blank
+    assign has_description = true
+  endif
+  if weight_and_height != blank or total_burn_time != blank or material_and_care != blank
+    assign has_product_details = true
+  endif
+-%}
+
+{%- if has_product_details or has_description -%}
+  <div class="mayaloka-product-details" aria-label="Product details">
+    {%- if has_description -%}
+      <details open>
+        <summary>Description</summary>
+        <div class="mayaloka-product-details__content rte">{{ product.description }}</div>
+      </details>
+    {%- endif -%}
+    {%- if has_product_details -%}
+    <details>
+      <summary>Specifications and care</summary>
+      <div class="mayaloka-product-details__content">
+    {%- if weight_and_height != blank -%}
+      {%- assign dimension_lines = weight_and_height | replace: ', ', '|' | split: '|' -%}
+      {%- for line in dimension_lines -%}
+        {%- assign label = line | split: ':' | first | strip -%}
+        {%- assign value = line | remove_first: label | remove_first: ':' | strip -%}
+        {%- if label != blank and value != blank -%}
+          <div class="mayaloka-product-details__row"><span>{{ label | escape }}</span><span>{{ value | escape }}</span></div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- if total_burn_time != blank -%}
+      <div class="mayaloka-product-details__row"><span>Total burn time</span><span>{{ total_burn_time | escape }}</span></div>
+    {%- endif -%}
+    {%- if material_and_care != blank -%}
+      {%- assign material_parts = material_and_care | replace: 'Care:', '|Care:' | split: '|' -%}
+      {%- for line in material_parts -%}
+        {%- assign label = line | split: ':' | first | strip -%}
+        {%- assign value = line | remove_first: label | remove_first: ':' | strip -%}
+        {%- if forloop.first and label == 'Material' -%}
+          {%- assign value = value | remove_first: 'Material:' | strip -%}
+        {%- endif -%}
+        {%- if label != blank and value != blank -%}
+          <div class="mayaloka-product-details__row"><span>{{ label | escape }}</span><span>{{ value | escape }}</span></div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+      </div>
+    </details>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
