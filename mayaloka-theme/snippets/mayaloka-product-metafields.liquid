@@ -25,7 +25,7 @@
       <summary>Specifications and care</summary>
       <div class="mayaloka-product-details__content">
     {%- if weight_and_height != blank -%}
-      {%- assign dimension_lines = weight_and_height | replace: ', ', '|' | split: '|' -%}
+      {%- assign dimension_lines = weight_and_height | replace: '; ', '|' | replace: ', ', '|' | split: '|' -%}
       {%- for line in dimension_lines -%}
         {%- assign label = line | split: ':' | first | strip -%}
         {%- assign value = line | remove_first: label | remove_first: ':' | strip -%}

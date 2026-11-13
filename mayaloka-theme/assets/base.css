@@ -4240,21 +4240,16 @@ product-recommendations:has([data-has-recommendations='false']) {
   }
 }
 
-/* Keep live product-card prices aligned with the former Mombatti cards. */
-:is(.product-grid__item, .resource-list__item) product-price.text-block {
-  color: var(--mayaloka-maroon, #922021) !important;
+/* Collection, search, and browse grids: match home/PDP product card typography (Lato body). */
+.product-card a.contents .text-block,
+.product-card a.contents .text-block :is(p, h1, h2, h3, h4, h5, h6) {
+  color: var(--mayaloka-ink, #231f20) !important;
   font-family: var(--mayaloka-font-body, var(--font-body--family));
-  font-size: 18px !important;
+  font-size: 15px !important;
   font-weight: 600;
-  line-height: 1.4;
-}
-
-.product-card product-price.text-block {
-  color: var(--mayaloka-maroon, #922021) !important;
-  font-family: var(--mayaloka-font-body, var(--font-body--family));
-  font-size: 24px !important;
-  font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.35;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .mayaloka-mombatti-card-title .mayaloka-card-brand {
@@ -4268,20 +4263,34 @@ product-recommendations:has([data-has-recommendations='false']) {
   text-transform: uppercase;
 }
 
-.mayaloka-mombatti-product-card .mayaloka-mombatti-card-title .text-block {
-  color: var(--mayaloka-ink, #292321) !important;
+.product-card product-price.text-block,
+:is(.product-grid__item, .resource-list__item) .product-card product-price.text-block {
+  color: var(--mayaloka-maroon, #922021) !important;
   font-family: var(--mayaloka-font-body, var(--font-body--family));
-  font-size: 15px !important;
+  font-size: 14px !important;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
-:is(.product-grid__item, .resource-list__item) product-price .price,
-:is(.product-grid__item, .resource-list__item) product-price .price-item--sale,
+.product-card product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note),
 .product-card product-price .price,
-.product-card product-price .price-item--sale {
+.product-card product-price .price-item--sale,
+.product-card .price,
+.product-card .price-item--sale {
   color: var(--mayaloka-maroon, #922021) !important;
-  font: inherit;
+  font-family: inherit;
+  font-size: inherit !important;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.product-card product-price .compare-at-price,
+.product-card .compare-at-price {
+  margin-right: 6px;
+  color: var(--mayaloka-ink-soft, #4a4a4a);
+  font-weight: 400;
 }
 
 .mayaloka-product-details details {
@@ -4381,19 +4390,6 @@ product-recommendations:has([data-has-recommendations='false']) {
 .product-information--mayaloka-pdp .variant-option--image-swatches .variant-option__button-label:has(:checked) {
   border: 2px solid var(--mayaloka-maroon, #922021);
   outline: none;
-}
-
-/* Directly size the visible price text in collection, search, and resource cards. */
-.product-card .price,
-.product-card .price-item--sale,
-.product-grid__item .price,
-.product-grid__item .price-item--sale,
-.resource-list__item .price,
-.resource-list__item .price-item--sale {
-  color: var(--mayaloka-maroon, #922021) !important;
-  font-size: 18px !important;
-  font-weight: 700 !important;
-  line-height: 1.25;
 }
 
 @media screen and (min-width: 750px) {
