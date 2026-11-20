@@ -2,9 +2,10 @@
   assign label = section.settings.label
   assign heading = section.settings.heading
   assign subtext = section.settings.subtext
+  assign anchor_id = section.settings.anchor_id | default: 'mayaloka-collections' | handleize
 %}
 
-<section class="mayaloka-collections" id="mayaloka-collections">
+<section class="mayaloka-collections" id="{{ anchor_id }}">
   <div class="mayaloka-collections__wrap">
     <div class="mayaloka-sec-head">
       {% if label != blank %}
@@ -26,14 +27,32 @@
           assign description = block.settings.description
           assign stamp = block.settings.stamp
           assign swatch_index = forloop.index0 | modulo: 4 | plus: 1
+
+          # A product can supply just the image (use_product_details off) or the whole card.
+          assign product_details = false
+          if product != blank and block.settings.use_product_details
+            assign product_details = true
+          endif
+
+          if block.settings.link != blank
+            assign card_url = block.settings.link
+          elsif product_details
+            assign card_url = product.url
+          elsif collection != blank
+            assign card_url = collection.url
+          else
+            assign card_url = routes.all_products_collection_url
+          endif
         %}
         <a
-          href="{% if product != blank %}{{ product.url }}{% elsif collection != blank %}{{ collection.url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}"
+          href="{{ card_url }}"
           class="mayaloka-coll-card mayaloka-coll-card--c{{ swatch_index }}"
           {{ block.shopify_attributes }}
         >
           <div class="mayaloka-coll-card__img">
-            {% if product != blank and product.featured_image != blank %}
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'mayaloka-coll-card__photo', alt: title }}
+            {% elsif product != blank and product.featured_image != blank %}
               {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'mayaloka-coll-card__photo' }}
             {% elsif collection != blank and collection.featured_image != blank %}
               {{ collection.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'mayaloka-coll-card__photo' }}
@@ -45,12 +64,17 @@
             {% endif %}
           </div>
           <div class="mayaloka-coll-card__body">
-            <h3>{% if product != blank %}{{ product.title }}{% else %}{{ title }}{% endif %}</h3>
+            <h3>{% if product_details %}{{ product.title }}{% else %}{{ title }}{% endif %}</h3>
             <p>{{ description }}</p>
-            {% if product != blank %}
+            {% if product_details %}
               <span class="mayaloka-coll-card__price">{{ product.price | money }}</span>
+            {% elsif section.settings.show_count and collection != blank and collection.products_count > 0 %}
+              <span class="mayaloka-coll-card__count">
+                {{- collection.products_count }}
+                {% if collection.products_count == 1 %}piece{% else %}pieces{% endif -%}
+              </span>
             {% endif %}
-            <span class="mayaloka-coll-card__cta">Shop the Edit →</span>
+            <span class="mayaloka-coll-card__cta">{{ section.settings.cta_label | default: 'Shop the Edit →' }}</span>
           </div>
         </a>
       {% endfor %}
@@ -62,6 +86,13 @@
   .mayaloka-collections {
     padding: 100px 0;
     background: var(--mayaloka-paper);
+    scroll-margin-top: 80px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html:has(.mayaloka-collections) {
+      scroll-behavior: smooth;
+    }
   }
 
   .mayaloka-collections__wrap {
@@ -154,6 +185,16 @@
     margin: 0 0 12px;
   }
 
+  .mayaloka-coll-card__count {
+    display: block;
+    font-family: var(--mayaloka-font-label);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--mayaloka-ink-soft);
+    margin: 0 0 12px;
+  }
+
   .mayaloka-coll-card__cta {
     font-family: var(--mayaloka-font-body);
     font-size: 12px;
@@ -193,6 +234,26 @@
       "id": "subtext",
       "label": "Subtext",
       "default": "Four ways into the world of Mayaloka — pick your entry point into the treasure hunt."
+    },
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "info": "Lets buttons jump here with a link like #shop-jewellery. Must be unique on the page.",
+      "default": "mayaloka-collections"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Card button label",
+      "default": "Shop the Edit →"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_count",
+      "label": "Show number of pieces",
+      "info": "For cards linked to a collection.",
+      "default": false
     }
   ],
   "blocks": [
@@ -209,6 +270,25 @@
           "type": "product",
           "id": "product",
           "label": "Featured product (optional — uses its image, title, price, and link)"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_product_details",
+          "label": "Use product title, price and link",
+          "info": "Turn off to use the product only for its image.",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card image (optional)",
+          "info": "Overrides the product or collection image."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card link (optional)",
+          "info": "Overrides the product or collection link."
         },
         {
           "type": "text",

@@ -1,0 +1,272 @@
+{% liquid
+  assign label = section.settings.label
+  assign heading = section.settings.heading
+  assign subtext = section.settings.subtext
+%}
+
+<section class="mayaloka-moodboard">
+  <div class="mayaloka-moodboard__wrap">
+    {% if label != blank or heading != blank or subtext != blank %}
+      <div class="mayaloka-sec-head">
+        {% if label != blank %}
+          <span class="mayaloka-label">{{ label }}</span>
+        {% endif %}
+        {% if heading != blank %}
+          <h2>{{ heading }}</h2>
+        {% endif %}
+        {% if subtext != blank %}
+          <p>{{ subtext }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="mayaloka-moodboard__grid">
+      {% for block in section.blocks %}
+        {% liquid
+          assign product = block.settings.product
+          assign collection = block.settings.collection
+
+          if block.settings.link != blank
+            assign tile_url = block.settings.link
+          elsif product != blank
+            assign tile_url = product.url
+          elsif collection != blank
+            assign tile_url = collection.url
+          else
+            assign tile_url = blank
+          endif
+
+          if block.settings.image != blank
+            assign tile_image = block.settings.image
+          elsif product != blank and product.featured_image != blank
+            assign tile_image = product.featured_image
+          elsif collection != blank and collection.featured_image != blank
+            assign tile_image = collection.featured_image
+          else
+            assign tile_image = blank
+          endif
+
+          assign caption = block.settings.caption
+          if caption == blank and product != blank
+            assign caption = product.title
+          elsif caption == blank and collection != blank
+            assign caption = collection.title
+          endif
+
+          assign swatch_index = forloop.index0 | modulo: 4 | plus: 1
+        %}
+        {% if tile_url != blank %}
+          <a href="{{ tile_url }}" class="mayaloka-moodboard__tile" {{ block.shopify_attributes }}>
+        {% else %}
+          <div class="mayaloka-moodboard__tile" {{ block.shopify_attributes }}>
+        {% endif %}
+          {% if tile_image != blank %}
+            {{ tile_image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 50vw, 100vw', class: 'mayaloka-moodboard__photo', alt: caption }}
+          {% else %}
+            <div class="mayaloka-moodboard__ph mayaloka-moodboard__ph--c{{ swatch_index }}"></div>
+          {% endif %}
+          {% if caption != blank %}
+            <span class="mayaloka-moodboard__caption">
+              {{ caption }}
+              {%- if tile_url != blank %} <span aria-hidden="true">→</span>{% endif -%}
+            </span>
+          {% endif %}
+        {% if tile_url != blank %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .mayaloka-moodboard {
+    padding: 100px 0;
+    background: var(--mayaloka-cream);
+  }
+
+  .mayaloka-moodboard__wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* Repeating 6-tile collage: big, small, tall, small, small, wide. */
+  .mayaloka-moodboard__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 220px;
+    grid-auto-flow: dense;
+    gap: 14px;
+  }
+
+  .mayaloka-moodboard__tile:nth-child(6n + 1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .mayaloka-moodboard__tile:nth-child(6n + 3) {
+    grid-row: span 2;
+  }
+
+  .mayaloka-moodboard__tile:nth-child(6n + 6) {
+    grid-column: span 3;
+  }
+
+  .mayaloka-moodboard__tile {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: var(--mayaloka-paper);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .mayaloka-moodboard__photo,
+  .mayaloka-moodboard__ph {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .6s ease;
+  }
+
+  a.mayaloka-moodboard__tile:hover .mayaloka-moodboard__photo,
+  a.mayaloka-moodboard__tile:hover .mayaloka-moodboard__ph {
+    transform: scale(1.05);
+  }
+
+  .mayaloka-moodboard__ph--c1 { background: linear-gradient(160deg, #c98a4a, #7e2a20); }
+  .mayaloka-moodboard__ph--c2 { background: linear-gradient(160deg, #3a6479, #0f262f); }
+  .mayaloka-moodboard__ph--c3 { background: linear-gradient(160deg, #d9b675, #a6392c); }
+  .mayaloka-moodboard__ph--c4 { background: linear-gradient(160deg, #8f4b3a, #17384a); }
+
+  .mayaloka-moodboard__caption {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    max-width: calc(100% - 24px);
+    padding: 7px 12px;
+    background: rgba(248, 241, 222, .92);
+    color: var(--mayaloka-ink);
+    font-family: var(--mayaloka-font-label);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    transition: background .2s, color .2s;
+  }
+
+  a.mayaloka-moodboard__tile:hover .mayaloka-moodboard__caption,
+  a.mayaloka-moodboard__tile:focus-visible .mayaloka-moodboard__caption {
+    background: var(--mayaloka-maroon);
+    color: var(--mayaloka-cream-light);
+  }
+
+  @media screen and (max-width: 749px) {
+    .mayaloka-moodboard {
+      padding: 64px 0;
+    }
+
+    .mayaloka-moodboard__wrap {
+      padding: 0 16px;
+    }
+
+    .mayaloka-moodboard__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: 160px;
+      gap: 10px;
+    }
+
+    .mayaloka-moodboard__tile:nth-child(6n + 6) {
+      grid-column: span 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mayaloka-moodboard__photo,
+    .mayaloka-moodboard__ph {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Mayaloka Mood Board",
+  "tag": "section",
+  "class": "mayaloka-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "The Mood Board"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Styled by Mayaloka"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "A glimpse of how our treasures and candles come together."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Lifestyle photo. If empty, the product's or collection's image is used."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product (optional)",
+          "info": "Links the tile and supplies an image and caption if those are empty."
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection (optional)"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)",
+          "info": "Overrides the product or collection link."
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mayaloka Mood Board",
+      "blocks": [
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" }
+      ]
+    }
+  ]
+}
+{% endschema %}

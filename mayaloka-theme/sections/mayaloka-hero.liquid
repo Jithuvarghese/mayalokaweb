@@ -12,7 +12,7 @@
   assign hero_image_mobile = section.settings.hero_image_mobile
 %}
 
-<section class="mayaloka-hero{% if hero_image != blank %} mayaloka-hero--image{% endif %}">
+<section class="mayaloka-hero{% if hero_image != blank %} mayaloka-hero--image{% endif %}{% if section.settings.size == 'compact' %} mayaloka-hero--compact{% endif %}">
   {% if hero_image != blank %}
     {{ hero_image | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', class: 'mayaloka-hero__image mayaloka-hero__image--desktop' }}
     {% if hero_image_mobile != blank %}
@@ -313,6 +313,54 @@
       inset: -8px;
     }
   }
+
+  /* Compact size: shorter hero so the collections show above the fold. */
+  .mayaloka-hero--compact {
+    padding: 56px 0 44px;
+  }
+
+  .mayaloka-hero--compact.mayaloka-hero--image {
+    min-height: clamp(440px, 62vh, 560px);
+  }
+
+  .mayaloka-hero--compact .mayaloka-hero__frame {
+    max-width: 820px;
+    padding: 80px 36px 24px;
+  }
+
+  .mayaloka-hero--compact .mayaloka-hero__kicker {
+    margin-bottom: 12px;
+  }
+
+  .mayaloka-hero--compact .mayaloka-hero__heading {
+    font-size: clamp(34px, 4.6vw, 58px);
+    margin-bottom: 14px;
+  }
+
+  .mayaloka-hero--compact .mayaloka-hero__subtext {
+    font-size: 15.5px;
+    margin-bottom: 22px;
+  }
+
+  .mayaloka-hero--compact .mayaloka-hero__ctas {
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 989px) {
+    .mayaloka-hero--compact .mayaloka-hero__frame {
+      padding: 96px 28px 40px;
+    }
+  }
+
+  @media (max-width: 749px) {
+    .mayaloka-hero--compact.mayaloka-hero--image {
+      min-height: 500px;
+    }
+
+    .mayaloka-hero--compact .mayaloka-hero__frame {
+      padding: 104px 20px 52px;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -321,6 +369,16 @@
   "tag": "section",
   "class": "mayaloka-section",
   "settings": [
+    {
+      "type": "select",
+      "id": "size",
+      "label": "Hero height",
+      "options": [
+        { "value": "compact", "label": "Compact" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "large"
+    },
     {
       "type": "image_picker",
       "id": "hero_image",

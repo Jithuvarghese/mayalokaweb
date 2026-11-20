@@ -6,8 +6,7 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */
-{
+ */{
   "sections": {
     "mayaloka_hero": {
       "type": "mayaloka-hero",
@@ -18,11 +17,12 @@
         "heading": "Every piece,",
         "heading_emphasis": "a treasure discovered.",
         "subtext": "Curated anti-tarnish jewellery presented with the charm and wonder of an old Indian bazaar — where nostalgia and modernity share the same shelf.",
-        "primary_button_label": "Explore the Collection",
-        "primary_button_url": "#mayaloka-collections",
-        "secondary_button_label": "Our Story",
-        "secondary_button_url": "/pages/about-us",
-        "badge_text": "Gold  ✦  Diamond  ✦  Silver  ✦  Antique"
+        "primary_button_label": "Shop Jewellery",
+        "primary_button_url": "#shop-jewellery",
+        "secondary_button_label": "Shop Mombatti",
+        "secondary_button_url": "#shop-mombatti",
+        "badge_text": "Gold  ✦  Diamond  ✦  Silver  ✦  Antique",
+        "size": "compact"
       }
     },
     "mayaloka_ticker": {
@@ -71,7 +71,7 @@
             "product": "",
             "title": "Necklace",
             "description": "Layers that carry the whole story.",
-            "stamp": "New"
+            "stamp": ""
           }
         },
         "card_2": {
@@ -81,7 +81,7 @@
             "product": "",
             "title": "Earrings",
             "description": "Small pieces, unmistakable presence.",
-            "stamp": "Bestseller"
+            "stamp": ""
           }
         },
         "card_3": {
@@ -91,7 +91,7 @@
             "product": "",
             "title": "Rings",
             "description": "Anti-tarnish pieces you'll never take off.",
-            "stamp": "Everyday"
+            "stamp": ""
           }
         },
         "card_4": {
@@ -101,7 +101,7 @@
             "product": "",
             "title": "Bracelets",
             "description": "Stack them, wear them, keep them all.",
-            "stamp": "Limited"
+            "stamp": ""
           }
         }
       },
@@ -112,9 +112,12 @@
         "card_4"
       ],
       "settings": {
-        "label": "The Bazaar Edit",
-        "heading": "Shop by Collection",
-        "subtext": "Four ways into the world of Mayaloka — pick your entry point into the treasure hunt."
+        "label": "Jewellery",
+        "heading": "Shop Jewellery by Collection",
+        "subtext": "Anti-tarnish pieces in four ways to wear them.",
+        "anchor_id": "shop-jewellery",
+        "cta_label": "Shop now →",
+        "show_count": true
       }
     },
     "mayaloka_philosophy": {
@@ -122,7 +125,8 @@
       "settings": {
         "quote": "Modern treasures, wrapped in old Indian magic.",
         "cite": "The Mayaloka Promise"
-      }
+      },
+      "disabled": true
     },
     "mayaloka_shop": {
       "type": "mayaloka-product-grid",
@@ -224,7 +228,8 @@
         "subtext": "Handpicked, anti-tarnish, made to stay in rotation.",
         "collection": "",
         "products_to_show": 8
-      }
+      },
+      "disabled": true
     },
     "mayaloka_press": {
       "type": "mayaloka-press",
@@ -260,7 +265,8 @@
         "press_3",
         "press_4"
       ],
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "mayaloka_mombatti": {
       "type": "mayaloka-mombatti-arrivals",
@@ -270,7 +276,8 @@
         "subtext": "Hand-poured scented candles, fresh from the Mombatti workshop.",
         "collection": "mombatti",
         "products_to_show": 8
-      }
+      },
+      "disabled": true
     },
     "mayaloka_newsletter": {
       "type": "mayaloka-newsletter",
@@ -278,16 +285,191 @@
         "heading": "Join the Treasure Circle",
         "subtext": "First access to new drops, bazaar stories, and an insider's note from the founder — no spam, just discoveries."
       }
+    },
+    "mayaloka_mombatti_collections": {
+      "type": "mayaloka-collections",
+      "blocks": {
+        "mombatti_fortune": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "mombatti",
+            "product": "fortune-series-love-letter-candle",
+            "use_product_details": false,
+            "title": "Fortune Series",
+            "description": "Candles that reveal a hidden message as they burn.",
+            "stamp": ""
+          }
+        },
+        "mombatti_cafe": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "mombatti",
+            "product": "iced-matcha",
+            "use_product_details": false,
+            "title": "Café Candles",
+            "description": "Iced matcha, cold brew and whiskey, poured in glass.",
+            "stamp": ""
+          }
+        },
+        "mombatti_sweet": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "mombatti",
+            "product": "stawberry-jam",
+            "use_product_details": false,
+            "title": "Sweet Treats",
+            "description": "Strawberry jam, chai and Parle-G, made to look good enough to eat.",
+            "stamp": ""
+          }
+        },
+        "mombatti_floral": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "mombatti",
+            "product": "lotus-pond-candle",
+            "use_product_details": false,
+            "title": "Floral",
+            "description": "Lotus blooms floating in a brass bowl.",
+            "stamp": ""
+          }
+        }
+      },
+      "block_order": [
+        "mombatti_fortune",
+        "mombatti_cafe",
+        "mombatti_sweet",
+        "mombatti_floral"
+      ],
+      "settings": {
+        "label": "Mombatti",
+        "heading": "Shop Mombatti by Collection",
+        "subtext": "Hand-poured scented candles by Mombatti.",
+        "anchor_id": "shop-mombatti",
+        "cta_label": "Shop now →",
+        "show_count": false
+      }
+    },
+    "mayaloka_moodboard": {
+      "type": "mayaloka-moodboard",
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "product": "lotus-pond-candle"
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "product": "neelakurnji-flower-violet-earrings"
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "product": "aruvi-long-sleek-gold-tone-studded-necklace"
+          }
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "product": "iced-matcha"
+          }
+        },
+        "tile_5": {
+          "type": "tile",
+          "settings": {
+            "product": "kanaka-gold-tone-statement-ring"
+          }
+        },
+        "tile_6": {
+          "type": "tile",
+          "settings": {
+            "product": "fortune-series-love-letter-candle"
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4",
+        "tile_5",
+        "tile_6"
+      ],
+      "settings": {
+        "label": "The Mood Board",
+        "heading": "Styled by Mayaloka",
+        "subtext": "A glimpse of how our treasures and candles come together."
+      }
+    },
+    "mayaloka_testimonials": {
+      "type": "mayaloka-testimonials",
+      "blocks": {
+        "sample_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "[Sample] Replace with a real customer review before going live.",
+            "name": "Customer name",
+            "location": "City",
+            "rating": 5,
+            "product": ""
+          }
+        },
+        "sample_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "[Sample] Replace with a real customer review before going live.",
+            "name": "Customer name",
+            "location": "City",
+            "rating": 5,
+            "product": ""
+          }
+        },
+        "sample_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "[Sample] Replace with a real customer review before going live.",
+            "name": "Customer name",
+            "location": "City",
+            "rating": 5,
+            "product": ""
+          }
+        },
+        "sample_4": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "[Sample] Replace with a real customer review before going live.",
+            "name": "Customer name",
+            "location": "City",
+            "rating": 5,
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "sample_1",
+        "sample_2",
+        "sample_3",
+        "sample_4"
+      ],
+      "settings": {
+        "label": "Kind Words",
+        "heading": "Loved by our customers"
+      }
     }
   },
   "order": [
     "mayaloka_hero",
     "mayaloka_ticker",
     "mayaloka_collections",
+    "mayaloka_mombatti_collections",
+    "mayaloka_moodboard",
+    "mayaloka_testimonials",
+    "mayaloka_newsletter",
     "mayaloka_philosophy",
     "mayaloka_shop",
     "mayaloka_press",
-    "mayaloka_mombatti",
-    "mayaloka_newsletter"
+    "mayaloka_mombatti"
   ]
 }

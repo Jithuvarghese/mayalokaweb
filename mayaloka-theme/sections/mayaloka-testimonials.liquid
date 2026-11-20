@@ -1,0 +1,323 @@
+{% liquid
+  assign label = section.settings.label
+  assign heading = section.settings.heading
+  assign section_id = 'mayaloka-testimonials-' | append: section.id
+
+  assign quote_count = 0
+  for block in section.blocks
+    if block.settings.quote != blank
+      assign quote_count = quote_count | plus: 1
+    endif
+  endfor
+%}
+
+{% if quote_count > 0 or request.design_mode %}
+  <section class="mayaloka-testimonials" id="{{ section_id }}" aria-roledescription="carousel" aria-label="{{ heading | default: 'Customer reviews' | escape }}">
+    <div class="mayaloka-testimonials__wrap">
+      <div class="mayaloka-sec-head">
+        {% if label != blank %}
+          <span class="mayaloka-label">{{ label }}</span>
+        {% endif %}
+        {% if heading != blank %}
+          <h2>{{ heading }}</h2>
+        {% endif %}
+      </div>
+
+      {% if quote_count == 0 %}
+        <p class="mayaloka-testimonials__empty">Add a testimonial block with a real customer quote. This section stays hidden on the store until one exists.</p>
+      {% else %}
+        <div class="mayaloka-testimonials__carousel">
+          <button type="button" class="mayaloka-testimonials__nav" aria-label="Previous review" data-testimonials-prev>&#8249;</button>
+
+          <ul class="mayaloka-testimonials__track" data-testimonials-track role="list">
+            {% for block in section.blocks %}
+              {% if block.settings.quote != blank %}
+                {% assign rating = block.settings.rating %}
+                <li class="mayaloka-testimonials__card" {{ block.shopify_attributes }}>
+                  <figure>
+                    {% if rating > 0 %}
+                      <div class="mayaloka-testimonials__stars" role="img" aria-label="{{ rating }} out of 5 stars">
+                        {%- for i in (1..5) -%}
+                          <span class="{% if i <= rating %}is-on{% endif %}" aria-hidden="true">★</span>
+                        {%- endfor -%}
+                      </div>
+                    {% endif %}
+                    <blockquote class="mayaloka-testimonials__quote">“{{ block.settings.quote }}”</blockquote>
+                    <figcaption class="mayaloka-testimonials__author">
+                      {% if block.settings.name != blank %}
+                        <span class="mayaloka-testimonials__name">{{ block.settings.name }}</span>
+                      {% endif %}
+                      {% if block.settings.location != blank %}
+                        <span class="mayaloka-testimonials__location">{{ block.settings.location }}</span>
+                      {% endif %}
+                      {% if block.settings.product != blank %}
+                        <a class="mayaloka-testimonials__product" href="{{ block.settings.product.url }}">
+                          on {{ block.settings.product.title }}
+                        </a>
+                      {% endif %}
+                    </figcaption>
+                  </figure>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+
+          <button type="button" class="mayaloka-testimonials__nav" aria-label="Next review" data-testimonials-next>&#8250;</button>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var root = document.getElementById({{ section_id | json }});
+      if (!root) return;
+      var track = root.querySelector('[data-testimonials-track]');
+      if (!track) return;
+      var prev = root.querySelector('[data-testimonials-prev]');
+      var next = root.querySelector('[data-testimonials-next]');
+
+      function step(dir) {
+        var card = track.querySelector('.mayaloka-testimonials__card');
+        if (!card) return;
+        var amount = card.getBoundingClientRect().width + 20;
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        track.scrollBy({ left: dir * amount, behavior: reduce ? 'auto' : 'smooth' });
+      }
+
+      function update() {
+        var max = track.scrollWidth - track.clientWidth - 2;
+        if (prev) prev.disabled = track.scrollLeft <= 2;
+        if (next) next.disabled = track.scrollLeft >= max;
+      }
+
+      if (prev) prev.addEventListener('click', function () { step(-1); });
+      if (next) next.addEventListener('click', function () { step(1); });
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
+{% endif %}
+
+{% stylesheet %}
+  .mayaloka-testimonials {
+    padding: 100px 0;
+    background: var(--mayaloka-paper);
+  }
+
+  .mayaloka-testimonials__wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .mayaloka-testimonials__empty {
+    text-align: center;
+    color: var(--mayaloka-ink-soft);
+    font-size: 14px;
+  }
+
+  .mayaloka-testimonials__carousel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mayaloka-testimonials__track {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 4px;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .mayaloka-testimonials__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mayaloka-testimonials__card {
+    flex: 0 0 calc((100% - 40px) / 3);
+    scroll-snap-align: start;
+    background: var(--mayaloka-cream-light);
+    border: 1px solid rgba(36, 30, 25, .12);
+    padding: 30px 28px;
+  }
+
+  .mayaloka-testimonials__card figure {
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mayaloka-testimonials__stars {
+    font-size: 15px;
+    letter-spacing: 3px;
+    color: rgba(36, 30, 25, .18);
+    margin-bottom: 16px;
+  }
+
+  .mayaloka-testimonials__stars .is-on {
+    color: var(--mayaloka-gold);
+  }
+
+  .mayaloka-testimonials__quote {
+    margin: 0 0 22px;
+    font-family: var(--mayaloka-font-display);
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--mayaloka-ink);
+    flex: 1;
+  }
+
+  .mayaloka-testimonials__author {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-family: var(--mayaloka-font-body);
+    font-size: 13px;
+  }
+
+  .mayaloka-testimonials__name {
+    font-weight: 600;
+    color: var(--mayaloka-maroon);
+  }
+
+  .mayaloka-testimonials__location {
+    color: var(--mayaloka-ink-soft);
+  }
+
+  .mayaloka-testimonials__product {
+    color: var(--mayaloka-ink-soft);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .mayaloka-testimonials__nav {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--mayaloka-maroon);
+    background: var(--mayaloka-cream-light);
+    color: var(--mayaloka-maroon);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s, color .2s, opacity .2s;
+  }
+
+  .mayaloka-testimonials__nav:hover:not(:disabled) {
+    background: var(--mayaloka-maroon);
+    color: var(--mayaloka-cream-light);
+  }
+
+  .mayaloka-testimonials__nav:disabled {
+    opacity: .35;
+    cursor: default;
+  }
+
+  @media screen and (max-width: 989px) {
+    .mayaloka-testimonials__card {
+      flex-basis: calc((100% - 20px) / 2);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .mayaloka-testimonials {
+      padding: 64px 0;
+    }
+
+    .mayaloka-testimonials__wrap {
+      padding: 0 16px;
+    }
+
+    .mayaloka-testimonials__nav {
+      display: none;
+    }
+
+    .mayaloka-testimonials__card {
+      flex-basis: 85%;
+      padding: 24px 22px;
+    }
+
+    .mayaloka-testimonials__quote {
+      font-size: 17px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Mayaloka Testimonials",
+  "tag": "div",
+  "class": "mayaloka-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Kind Words"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Loved by our customers"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "info": "Use real customer words only."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "City (optional)"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating (0 hides stars)",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product reviewed (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mayaloka Testimonials"
+    }
+  ]
+}
+{% endschema %}
