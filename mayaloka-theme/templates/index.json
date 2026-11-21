@@ -293,9 +293,9 @@
           "settings": {
             "collection": "mombatti",
             "product": "fortune-series-love-letter-candle",
-            "use_product_details": false,
-            "title": "Fortune Series",
-            "description": "Candles that reveal a hidden message as they burn.",
+            "use_product_details": true,
+            "title": "",
+            "description": "",
             "stamp": ""
           }
         },
@@ -304,9 +304,9 @@
           "settings": {
             "collection": "mombatti",
             "product": "iced-matcha",
-            "use_product_details": false,
-            "title": "Café Candles",
-            "description": "Iced matcha, cold brew and whiskey, poured in glass.",
+            "use_product_details": true,
+            "title": "",
+            "description": "",
             "stamp": ""
           }
         },
@@ -315,9 +315,9 @@
           "settings": {
             "collection": "mombatti",
             "product": "stawberry-jam",
-            "use_product_details": false,
-            "title": "Sweet Treats",
-            "description": "Strawberry jam, chai and Parle-G, made to look good enough to eat.",
+            "use_product_details": true,
+            "title": "",
+            "description": "",
             "stamp": ""
           }
         },
@@ -326,9 +326,9 @@
           "settings": {
             "collection": "mombatti",
             "product": "lotus-pond-candle",
-            "use_product_details": false,
-            "title": "Floral",
-            "description": "Lotus blooms floating in a brass bowl.",
+            "use_product_details": true,
+            "title": "",
+            "description": "",
             "stamp": ""
           }
         }
@@ -454,7 +454,9 @@
       ],
       "settings": {
         "label": "Kind Words",
-        "heading": "Loved by our customers"
+        "heading": "Loved by our customers",
+        "autoplay": true,
+        "autoplay_speed": 5
       }
     }
   },
@@ -462,10 +464,10 @@
     "mayaloka_hero",
     "mayaloka_ticker",
     "mayaloka_collections",
-    "mayaloka_philosophy",
-    "mayaloka_mombatti_collections",
-    "mayaloka_moodboard",
     "mayaloka_testimonials",
+    "mayaloka_mombatti_collections",
+    "mayaloka_philosophy",
+    "mayaloka_moodboard",
     "mayaloka_newsletter",
     "mayaloka_shop",
     "mayaloka_press",

@@ -65,7 +65,9 @@
           </div>
           <div class="mayaloka-coll-card__body">
             <h3>{% if product_details %}{{ product.title }}{% else %}{{ title }}{% endif %}</h3>
-            <p>{{ description }}</p>
+            {% if description != blank %}
+              <p>{{ description }}</p>
+            {% endif %}
             {% if product_details %}
               <span class="mayaloka-coll-card__price">{{ product.price | money }}</span>
             {% elsif section.settings.show_count and collection != blank and collection.products_count > 0 %}

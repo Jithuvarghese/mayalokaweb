@@ -91,11 +91,51 @@
         if (next) next.disabled = track.scrollLeft >= max;
       }
 
-      if (prev) prev.addEventListener('click', function () { step(-1); });
-      if (next) next.addEventListener('click', function () { step(1); });
+      // Autoplay: advance every few seconds, loop back to the start at the end.
+      // Pauses on hover, keyboard focus, touch, and when the tab is hidden.
+      var interval = {{ section.settings.autoplay_speed | times: 1000 | json }};
+      var autoplay = {{ section.settings.autoplay | json }};
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var timer = null;
+      var paused = false;
+
+      function advance() {
+        if (paused || document.hidden) return;
+        var max = track.scrollWidth - track.clientWidth - 2;
+        if (max <= 0) return;
+        if (track.scrollLeft >= max) {
+          track.scrollTo({ left: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+        } else {
+          step(1);
+        }
+      }
+
+      function start() {
+        if (!autoplay || reduceMotion || timer) return;
+        timer = setInterval(advance, interval);
+      }
+
+      function restart() {
+        if (timer) { clearInterval(timer); timer = null; }
+        start();
+      }
+
+      function pause() { paused = true; }
+      function resume() { paused = false; }
+
+      root.addEventListener('mouseenter', pause);
+      root.addEventListener('mouseleave', resume);
+      root.addEventListener('focusin', pause);
+      root.addEventListener('focusout', resume);
+      track.addEventListener('touchstart', pause, { passive: true });
+      track.addEventListener('touchend', function () { resume(); restart(); }, { passive: true });
+
+      if (prev) prev.addEventListener('click', function () { step(-1); restart(); });
+      if (next) next.addEventListener('click', function () { step(1); restart(); });
       track.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update);
       update();
+      start();
     })();
   </script>
 {% endif %}
@@ -274,6 +314,22 @@
       "id": "heading",
       "label": "Heading",
       "default": "Loved by our customers"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate reviews",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Seconds between slides",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 5
     }
   ],
   "blocks": [
