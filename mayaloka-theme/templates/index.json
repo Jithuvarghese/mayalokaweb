@@ -125,8 +125,7 @@
       "settings": {
         "quote": "Modern treasures, wrapped in old Indian magic.",
         "cite": "The Mayaloka Promise"
-      },
-      "disabled": true
+      }
     },
     "mayaloka_shop": {
       "type": "mayaloka-product-grid",
@@ -463,11 +462,11 @@
     "mayaloka_hero",
     "mayaloka_ticker",
     "mayaloka_collections",
+    "mayaloka_philosophy",
     "mayaloka_mombatti_collections",
     "mayaloka_moodboard",
     "mayaloka_testimonials",
     "mayaloka_newsletter",
-    "mayaloka_philosophy",
     "mayaloka_shop",
     "mayaloka_press",
     "mayaloka_mombatti"
