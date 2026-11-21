@@ -176,17 +176,22 @@
 
 {% stylesheet %}
   .mayaloka-testimonials {
-    padding: 100px 0;
-    background: var(--mayaloka-navy);
+    padding: 64px 0;
+    background: var(--mayaloka-paper);
   }
 
-  /* Light text on the navy background. */
+  /* Tighter header than other sections so the reviews stay compact. */
+  .mayaloka-testimonials .mayaloka-sec-head {
+    margin-bottom: 28px;
+  }
+
   .mayaloka-testimonials .mayaloka-sec-head .mayaloka-label {
-    color: var(--mayaloka-gold);
+    margin-bottom: 8px;
   }
 
   .mayaloka-testimonials .mayaloka-sec-head h2 {
-    color: var(--mayaloka-cream-light);
+    font-size: clamp(26px, 3vw, 34px);
+    margin-bottom: 0;
   }
 
   .mayaloka-testimonials__wrap {
@@ -197,7 +202,7 @@
 
   .mayaloka-testimonials__empty {
     text-align: center;
-    color: rgba(255, 255, 255, .75);
+    color: var(--mayaloka-ink-soft);
     font-size: 14px;
   }
 
@@ -228,8 +233,8 @@
     flex: 0 0 calc((100% - 40px) / 3);
     scroll-snap-align: start;
     background: var(--mayaloka-cream-light);
-    border: 1px solid rgba(255, 255, 255, .12);
-    padding: 30px 28px;
+    border: 1px solid rgba(36, 30, 25, .12);
+    padding: 22px 24px;
   }
 
   .mayaloka-testimonials__card figure {
@@ -243,7 +248,7 @@
     font-size: 15px;
     letter-spacing: 3px;
     color: rgba(36, 30, 25, .18);
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
 
   .mayaloka-testimonials__stars .is-on {
@@ -251,9 +256,9 @@
   }
 
   .mayaloka-testimonials__quote {
-    margin: 0 0 22px;
+    margin: 0 0 14px;
     font-family: var(--mayaloka-font-display);
-    font-size: 19px;
+    font-size: 17px;
     line-height: 1.5;
     color: var(--mayaloka-ink);
     flex: 1;
@@ -287,9 +292,9 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid var(--mayaloka-gold);
-    background: transparent;
-    color: var(--mayaloka-cream-light);
+    border: 1px solid var(--mayaloka-maroon);
+    background: var(--mayaloka-cream-light);
+    color: var(--mayaloka-maroon);
     font-size: 22px;
     line-height: 1;
     cursor: pointer;
@@ -300,8 +305,8 @@
   }
 
   .mayaloka-testimonials__nav:hover:not(:disabled) {
-    background: var(--mayaloka-gold);
-    color: var(--mayaloka-navy);
+    background: var(--mayaloka-maroon);
+    color: var(--mayaloka-cream-light);
   }
 
   .mayaloka-testimonials__nav[hidden] {
@@ -321,7 +326,7 @@
 
   @media screen and (max-width: 749px) {
     .mayaloka-testimonials {
-      padding: 64px 0;
+      padding: 44px 0;
     }
 
     .mayaloka-testimonials__wrap {
@@ -334,11 +339,11 @@
 
     .mayaloka-testimonials__card {
       flex-basis: 85%;
-      padding: 24px 22px;
+      padding: 18px 18px;
     }
 
     .mayaloka-testimonials__quote {
-      font-size: 17px;
+      font-size: 16px;
     }
   }
 {% endstylesheet %}
