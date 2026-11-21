@@ -76,65 +76,99 @@
       if (!track) return;
       var prev = root.querySelector('[data-testimonials-prev]');
       var next = root.querySelector('[data-testimonials-next]');
+      var originals = Array.prototype.slice.call(track.children);
+      if (!originals.length) return;
 
-      function step(dir) {
-        var card = track.querySelector('.mayaloka-testimonials__card');
-        if (!card) return;
-        var amount = card.getBoundingClientRect().width + 20;
-        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        track.scrollBy({ left: dir * amount, behavior: reduce ? 'auto' : 'smooth' });
-      }
-
-      function update() {
-        var max = track.scrollWidth - track.clientWidth - 2;
-        if (prev) prev.disabled = track.scrollLeft <= 2;
-        if (next) next.disabled = track.scrollLeft >= max;
-      }
-
-      // Autoplay: advance every few seconds, loop back to the start at the end.
-      // Pauses on hover, keyboard focus, touch, and when the tab is hidden.
       var interval = {{ section.settings.autoplay_speed | times: 1000 | json }};
       var autoplay = {{ section.settings.autoplay | json }};
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var timer = null;
-      var paused = false;
+      var behavior = reduceMotion ? 'auto' : 'smooth';
 
-      function advance() {
-        if (paused || document.hidden) return;
-        var max = track.scrollWidth - track.clientWidth - 2;
-        if (max <= 0) return;
-        if (track.scrollLeft >= max) {
-          track.scrollTo({ left: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-        } else {
-          step(1);
+      // Only loop when the reviews don't all fit on screen at once.
+      var overflows = track.scrollWidth > track.clientWidth + 2;
+
+      // Endless loop: append one copy of the reviews (hidden from screen readers
+      // and keyboard). When we scroll into the copy we jump back by one set's
+      // width; because the copy looks identical, the jump can't be seen.
+      if (overflows) {
+        originals.forEach(function (card) {
+          var clone = card.cloneNode(true);
+          clone.setAttribute('aria-hidden', 'true');
+          clone.setAttribute('inert', '');
+          clone.removeAttribute('data-shopify-editor-block');
+          track.appendChild(clone);
+        });
+      }
+
+      function gap() {
+        return parseFloat(getComputedStyle(track).columnGap) || 0;
+      }
+
+      function setWidth() {
+        return track.children[originals.length].offsetLeft - originals[0].offsetLeft;
+      }
+
+      function stepSize() {
+        return originals[0].getBoundingClientRect().width + gap();
+      }
+
+      function jump(left) {
+        track.style.scrollSnapType = 'none';
+        track.scrollLeft = left;
+        track.offsetWidth; // apply before re-enabling snap
+        track.style.scrollSnapType = '';
+      }
+
+      function go(dir) {
+        if (!overflows) {
+          track.scrollBy({ left: dir * stepSize(), behavior: behavior });
+          return;
         }
+        var w = setWidth();
+        if (dir > 0 && track.scrollLeft >= w - 2) jump(track.scrollLeft - w);
+        if (dir < 0 && track.scrollLeft <= 2) jump(track.scrollLeft + w);
+        track.scrollBy({ left: dir * stepSize(), behavior: behavior });
+      }
+
+      // Autoplay. Pauses while a finger is on it, while keyboard focus is
+      // inside, when it's scrolled off screen, and when the tab is hidden.
+      var timer = null;
+      var touching = false;
+      var focused = false;
+      var visible = true;
+
+      function tick() {
+        if (touching || focused || !visible || document.hidden) return;
+        go(1);
       }
 
       function start() {
-        if (!autoplay || reduceMotion || timer) return;
-        timer = setInterval(advance, interval);
+        if (!autoplay || reduceMotion || !overflows) return;
+        if (timer) clearInterval(timer);
+        timer = setInterval(tick, interval);
       }
 
-      function restart() {
-        if (timer) { clearInterval(timer); timer = null; }
-        start();
+      root.addEventListener('focusin', function (e) {
+        if (e.target.matches && e.target.matches(':focus-visible')) focused = true;
+      });
+      root.addEventListener('focusout', function () { focused = false; });
+      track.addEventListener('touchstart', function () { touching = true; }, { passive: true });
+      track.addEventListener('touchend', function () { touching = false; start(); }, { passive: true });
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          visible = entries[0].isIntersecting;
+        }, { threshold: 0.3 }).observe(track);
       }
 
-      function pause() { paused = true; }
-      function resume() { paused = false; }
+      if (prev) prev.addEventListener('click', function () { go(-1); start(); });
+      if (next) next.addEventListener('click', function () { go(1); start(); });
 
-      root.addEventListener('mouseenter', pause);
-      root.addEventListener('mouseleave', resume);
-      root.addEventListener('focusin', pause);
-      root.addEventListener('focusout', resume);
-      track.addEventListener('touchstart', pause, { passive: true });
-      track.addEventListener('touchend', function () { resume(); restart(); }, { passive: true });
+      if (!overflows) {
+        if (prev) prev.hidden = true;
+        if (next) next.hidden = true;
+      }
 
-      if (prev) prev.addEventListener('click', function () { step(-1); restart(); });
-      if (next) next.addEventListener('click', function () { step(1); restart(); });
-      track.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
-      update();
       start();
     })();
   </script>
@@ -143,7 +177,16 @@
 {% stylesheet %}
   .mayaloka-testimonials {
     padding: 100px 0;
-    background: var(--mayaloka-paper);
+    background: var(--mayaloka-navy);
+  }
+
+  /* Light text on the navy background. */
+  .mayaloka-testimonials .mayaloka-sec-head .mayaloka-label {
+    color: var(--mayaloka-gold);
+  }
+
+  .mayaloka-testimonials .mayaloka-sec-head h2 {
+    color: var(--mayaloka-cream-light);
   }
 
   .mayaloka-testimonials__wrap {
@@ -154,7 +197,7 @@
 
   .mayaloka-testimonials__empty {
     text-align: center;
-    color: var(--mayaloka-ink-soft);
+    color: rgba(255, 255, 255, .75);
     font-size: 14px;
   }
 
@@ -185,7 +228,7 @@
     flex: 0 0 calc((100% - 40px) / 3);
     scroll-snap-align: start;
     background: var(--mayaloka-cream-light);
-    border: 1px solid rgba(36, 30, 25, .12);
+    border: 1px solid rgba(255, 255, 255, .12);
     padding: 30px 28px;
   }
 
@@ -244,9 +287,9 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid var(--mayaloka-maroon);
-    background: var(--mayaloka-cream-light);
-    color: var(--mayaloka-maroon);
+    border: 1px solid var(--mayaloka-gold);
+    background: transparent;
+    color: var(--mayaloka-cream-light);
     font-size: 22px;
     line-height: 1;
     cursor: pointer;
@@ -257,8 +300,12 @@
   }
 
   .mayaloka-testimonials__nav:hover:not(:disabled) {
-    background: var(--mayaloka-maroon);
-    color: var(--mayaloka-cream-light);
+    background: var(--mayaloka-gold);
+    color: var(--mayaloka-navy);
+  }
+
+  .mayaloka-testimonials__nav[hidden] {
+    display: none;
   }
 
   .mayaloka-testimonials__nav:disabled {
