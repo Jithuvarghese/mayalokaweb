@@ -34,10 +34,15 @@
 
 {% stylesheet %}
   .mayaloka-newsletter {
-    padding: 110px 0;
+    padding: 72px 0;
     text-align: center;
     background: var(--mayaloka-maroon);
     color: var(--mayaloka-cream-light);
+  }
+
+  @media screen and (max-width: 749px) {
+    .mayaloka-newsletter { padding: 52px 0; }
+    .mayaloka-newsletter__wrap { padding: 0 16px; }
   }
 
   .mayaloka-newsletter__wrap {

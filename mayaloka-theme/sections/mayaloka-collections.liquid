@@ -86,7 +86,7 @@
 
 {% stylesheet %}
   .mayaloka-collections {
-    padding: 100px 0;
+    padding: 20px 0 56px;
     background: var(--mayaloka-paper);
     scroll-margin-top: 80px;
   }
@@ -210,6 +210,11 @@
     .mayaloka-collections__grid {
       grid-template-columns: repeat(2, 1fr);
     }
+  }
+
+  @media screen and (max-width: 749px) {
+    .mayaloka-collections { padding: 16px 0 40px; }
+    .mayaloka-collections__wrap { padding: 0 16px; }
   }
 {% endstylesheet %}
 

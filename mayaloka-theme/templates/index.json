@@ -10,6 +10,35 @@
   "sections": {
     "mayaloka_hero": {
       "type": "mayaloka-hero",
+      "blocks": {
+        "collection_necklace": {
+          "type": "collection",
+          "settings": { "collection": "necklace" }
+        },
+        "collection_earrings": {
+          "type": "collection",
+          "settings": { "collection": "earrings" }
+        },
+        "collection_rings": {
+          "type": "collection",
+          "settings": { "collection": "rings" }
+        },
+        "collection_bracelets": {
+          "type": "collection",
+          "settings": { "collection": "bracelets" }
+        },
+        "collection_mombatti": {
+          "type": "collection",
+          "settings": { "collection": "mombatti" }
+        }
+      },
+      "block_order": [
+        "collection_necklace",
+        "collection_earrings",
+        "collection_rings",
+        "collection_bracelets",
+        "collection_mombatti"
+      ],
       "settings": {
         "hero_image": "shopify://shop_images/landing_page_pic.png",
         "hero_image_mobile": "shopify://shop_images/landing_page_pic_vertical.png",
@@ -117,7 +146,7 @@
         "subtext": "Anti-tarnish pieces in four ways to wear them.",
         "anchor_id": "shop-jewellery",
         "cta_label": "Shop now →",
-        "show_count": true
+        "show_count": false
       }
     },
     "mayaloka_philosophy": {

@@ -4233,6 +4233,10 @@ product-recommendations:has([data-has-recommendations='false']) {
   font-weight: 600;
 }
 
+.mayaloka-product-details__content > .mayaloka-product-details__row:last-child {
+  border-bottom: 0;
+}
+
 @media screen and (max-width: 749px) {
   .mayaloka-product-details__row {
     grid-template-columns: 1fr;
