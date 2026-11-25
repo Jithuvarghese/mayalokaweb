@@ -56,7 +56,7 @@
       "type": "mayaloka-craftsmanship",
       "settings": {
         "eyebrow": "The Mayaloka Standard",
-        "heading": "What makes our craftsmanship premium?",
+        "heading": "What makes our craftsmanship one of a kind?",
         "intro": "Mayaloka is known for its unbeatable fine craftsmanship. From hand-finished settings to anti-tarnish plating, every piece is made with the finest materials and thoughtful design — offering not just jewellery, but a premium experience."
       },
       "blocks": {
@@ -73,7 +73,7 @@
           "settings": {
             "icon": "✦",
             "title": "Detailed Design",
-            "description": "Our pieces feature intricate designs that highlight exquisite craftsmanship — a blend of traditional artistry and modern aesthetics."
+            "description": "Our pieces feature intricate designs that highlight exquisite craftsmanship, a blend of traditional artistry and modern aesthetics."
           }
         },
         "card_3": {
@@ -89,7 +89,7 @@
           "settings": {
             "icon": "❖",
             "title": "Hypoallergenic",
-            "description": "Thoughtfully designed to be gentle on your skin — pieces are hypoallergenic, offering all-day comfort without irritation."
+            "description": "Thoughtfully designed to be gentle on your skin, pieces are hypoallergenic, offering all-day comfort without irritation."
           }
         },
         "card_5": {

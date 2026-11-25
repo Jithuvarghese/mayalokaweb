@@ -44,13 +44,13 @@
         "hero_image_mobile": "shopify://shop_images/landing_page_pic_vertical.png",
         "kicker": "Modern treasures · Old Indian magic",
         "heading": "Every piece,",
-        "heading_emphasis": "a treasure discovered.",
-        "subtext": "Curated anti-tarnish jewellery presented with the charm and wonder of an old Indian bazaar — where nostalgia and modernity share the same shelf.",
+        "heading_emphasis": "a treasure discovered - Welcome to the Loka.",
+        "subtext": "Curated anti-tarnish Jewel where every piece feels like a treasure discovered. Wrapped in nostalgia and modernity.",
         "primary_button_label": "Shop Jewellery",
         "primary_button_url": "#shop-jewellery",
         "secondary_button_label": "Shop Mombatti",
         "secondary_button_url": "#shop-mombatti",
-        "badge_text": "Gold  ✦  Diamond  ✦  Silver  ✦  Antique",
+        "badge_text": "Gold  ✦  Silver  ✦  Fashion Jewellery and more",
         "size": "compact"
       }
     },
@@ -143,7 +143,7 @@
       "settings": {
         "label": "Jewellery",
         "heading": "Shop Jewellery by Collection",
-        "subtext": "Anti-tarnish pieces in four ways to wear them.",
+        "subtext": "Find your everyday elegance in old Indian charm.",
         "anchor_id": "shop-jewellery",
         "cta_label": "Shop now →",
         "show_count": false
