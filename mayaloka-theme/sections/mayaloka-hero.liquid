@@ -23,36 +23,6 @@
   {% endif %}
   <div class="mayaloka-hero__wrap">
     <div class="mayaloka-hero__frame">
-      <svg class="mayaloka-hero__frame-svg" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-        <defs>
-          <pattern id="mayaloka-hero-stripes" width="4" height="4" patternUnits="userSpaceOnUse">
-            <rect width="4" height="2" fill="rgba(36, 30, 25, .015)" />
-          </pattern>
-          <path id="mayaloka-hero-cartouche" d="M 160 90
-            L 360 90
-            C 424 90 432 58 470 36
-            C 510 12 552 0 600 0
-            C 648 0 690 12 730 36
-            C 768 58 776 90 840 90
-            L 1040 90
-            C 1096 90 1114 102 1132 126
-            C 1162 164 1200 150 1200 214
-            L 1200 476
-            C 1200 540 1162 526 1132 564
-            C 1114 588 1096 600 1040 600
-            L 160 600
-            C 104 600 86 588 68 564
-            C 38 526 0 540 0 476
-            L 0 214
-            C 0 150 38 164 68 126
-            C 86 102 104 90 160 90
-            Z" />
-        </defs>
-        <use href="#mayaloka-hero-cartouche" class="mayaloka-hero__frame-fill" />
-        <use href="#mayaloka-hero-cartouche" class="mayaloka-hero__frame-texture" />
-        <use href="#mayaloka-hero-cartouche" class="mayaloka-hero__frame-inner" transform="translate(600,300) scale(1.0133) translate(-600,-300)" />
-        <use href="#mayaloka-hero-cartouche" class="mayaloka-hero__frame-outer" />
-      </svg>
       {% if kicker != blank %}
         <div class="mayaloka-hero__kicker">{{ kicker }}</div>
       {% endif %}
@@ -95,11 +65,22 @@
         {% assign collection = block.settings.collection %}
         {% if collection != blank %}
           <a class="mayaloka-hero__collection" href="{{ collection.url }}" {{ block.shopify_attributes }}>
-            {% if collection.featured_image != blank %}
-              {{ collection.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'mayaloka-hero__collection-image', alt: collection.title }}
-            {% else %}
-              <span class="mayaloka-hero__collection-empty">{{ collection.title | escape }}</span>
-            {% endif %}
+            {% assign gallery_image_count = 0 %}
+            <span class="mayaloka-hero__collection-gallery" data-hero-product-gallery aria-label="{{ collection.title | escape }} collection images">
+              {% if collection.featured_image != blank %}
+                {{ collection.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'mayaloka-hero__collection-image is-active', alt: collection.title }}
+                {% assign gallery_image_count = gallery_image_count | plus: 1 %}
+              {% endif %}
+              {% for product in collection.products limit: 8 %}
+                {% if product.featured_image != blank %}
+                  {% assign slide_class = 'mayaloka-hero__collection-image' %}
+                  {% if gallery_image_count == 0 %}{% assign slide_class = slide_class | append: ' is-active' %}{% endif %}
+                  {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', class: slide_class, alt: product.title }}
+                  {% assign gallery_image_count = gallery_image_count | plus: 1 %}
+                {% endif %}
+              {% endfor %}
+              {% if gallery_image_count == 0 %}<span class="mayaloka-hero__collection-empty">{{ collection.title | escape }}</span>{% endif %}
+            </span>
             <span class="mayaloka-hero__collection-title">{{ collection.title }}</span>
           </a>
         {% endif %}
@@ -107,6 +88,39 @@
     </div>
   </div>
 </section>
+
+<script>
+  (() => {
+    const section = document.currentScript.previousElementSibling;
+    const galleries = section?.querySelectorAll('[data-hero-product-gallery]');
+    if (!galleries?.length) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    galleries.forEach((gallery) => {
+      const slides = [...gallery.querySelectorAll('.mayaloka-hero__collection-image')];
+      if (slides.length < 2) return;
+      let current = 0;
+      let timer;
+      let paused = false;
+      const stop = () => window.clearInterval(timer);
+      const start = () => {
+        stop();
+        if (paused || reducedMotion.matches) return;
+        timer = window.setInterval(() => {
+          slides[current].classList.remove('is-active');
+          current = (current + 1) % slides.length;
+          slides[current].classList.add('is-active');
+        }, 3200);
+      };
+      gallery.addEventListener('mouseenter', () => { paused = true; stop(); });
+      gallery.addEventListener('mouseleave', () => { paused = false; start(); });
+      gallery.addEventListener('focusin', () => { paused = true; stop(); });
+      gallery.addEventListener('focusout', () => { paused = false; start(); });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => { paused = !entry.isIntersecting; start(); }).observe(gallery);
+      } else start();
+    });
+  })();
+</script>
 
 {% stylesheet %}
   .mayaloka-hero {
@@ -122,6 +136,7 @@
   .mayaloka-hero--split {
     display: grid;
     grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    align-items: stretch;
     min-height: min(590px, calc(100svh - 172px));
     padding: 0;
     text-align: center;
@@ -141,19 +156,6 @@
   .mayaloka-hero__story > .mayaloka-hero__image,
   .mayaloka-hero__story > .mayaloka-hero__overlay { position: absolute; }
 
-  @media (min-width: 1025px) {
-    .mayaloka-hero__story::after {
-      content: '';
-      position: absolute;
-      z-index: 0;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(90deg, rgba(255, 255, 255, .56), transparent 5%, transparent 78%, rgba(255, 255, 255, .94)),
-        linear-gradient(180deg, rgba(255, 255, 255, .22), transparent 9%, transparent 91%, rgba(255, 255, 255, .3));
-    }
-  }
-
   .mayaloka-hero__story .mayaloka-hero__wrap { width: 100%; }
 
   .mayaloka-hero__story .mayaloka-hero__frame {
@@ -169,6 +171,7 @@
     align-items: center;
     padding: 32px clamp(20px, 3vw, 52px);
     background: var(--mayaloka-cream-light);
+    border-left: 5px solid var(--mayaloka-maroon);
   }
 
   .mayaloka-hero__collection-grid {
@@ -189,22 +192,24 @@
 
   .mayaloka-hero__collection:nth-child(n + 3) { grid-column: span 2; }
 
-  .mayaloka-hero__collection-image,
+  .mayaloka-hero__collection-gallery,
   .mayaloka-hero__collection-empty {
+    position: relative;
     display: block;
     width: 100%;
     height: clamp(145px, 16vw, 205px);
-    object-fit: cover;
+    overflow: hidden;
     border: 0;
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(36, 30, 25, .08);
-    transition: transform .45s ease, box-shadow .45s ease;
   }
 
+  .mayaloka-hero__collection-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .65s ease; }
+  .mayaloka-hero__collection-image.is-active { opacity: 1; }
+
   .mayaloka-hero__collection-empty { background: #e8dfce; padding: 70px 12px; }
-  .mayaloka-hero__collection:hover .mayaloka-hero__collection-image { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(36,30,25,.12); }
+  @media (prefers-reduced-motion: reduce) { .mayaloka-hero__collection-image { transition: none; } }
   .mayaloka-hero__mobile-ticker { display: none; }
-  @media (prefers-reduced-motion: reduce) { .mayaloka-hero__mobile-ticker-track { animation: none; } }
 
   .mayaloka-hero__collection-title {
     display: block;
@@ -225,6 +230,7 @@
   .mayaloka-hero--split.mayaloka-hero--image {
     display: grid;
     grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+    align-items: stretch;
     min-height: min(590px, calc(100svh - 172px));
     padding: 0;
     background: var(--mayaloka-cream-light);
@@ -263,56 +269,6 @@
     margin: 0 auto;
     padding: 104px 40px 34px;
     position: relative;
-  }
-
-  .mayaloka-hero__frame-svg {
-    position: absolute;
-    inset: -14px;
-    width: calc(100% + 28px);
-    height: calc(100% + 28px);
-    overflow: visible;
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  .mayaloka-hero__frame-fill {
-    fill: var(--mayaloka-cream-light);
-  }
-
-  .mayaloka-hero__frame-texture {
-    fill: url(#mayaloka-hero-stripes);
-  }
-
-  .mayaloka-hero__frame-outer,
-  .mayaloka-hero__frame-inner {
-    fill: none;
-    vector-effect: non-scaling-stroke;
-  }
-
-  .mayaloka-hero__frame-outer {
-    stroke: var(--mayaloka-maroon);
-    stroke-width: 2;
-  }
-
-  .mayaloka-hero__frame-inner {
-    stroke: var(--mayaloka-gold);
-    stroke-width: 1;
-  }
-
-  .mayaloka-hero--image .mayaloka-hero__frame-fill {
-    fill: rgba(36, 30, 25, .3);
-  }
-
-  .mayaloka-hero--image .mayaloka-hero__frame-texture {
-    display: none;
-  }
-
-  .mayaloka-hero--image .mayaloka-hero__frame-outer {
-    stroke: rgba(248, 241, 222, .8);
-  }
-
-  .mayaloka-hero--image .mayaloka-hero__frame-inner {
-    stroke: rgba(248, 241, 222, .55);
   }
 
   .mayaloka-hero--image .mayaloka-hero__kicker,
@@ -392,15 +348,6 @@
       padding: 132px 32px 62px;
     }
 
-    .mayaloka-hero__frame-svg {
-      inset: -10px;
-      width: calc(100% + 20px);
-      height: calc(100% + 20px);
-    }
-
-    .mayaloka-hero__frame::before {
-      inset: -10px;
-    }
   }
 
   @media (max-width: 749px) {
@@ -410,21 +357,17 @@
     .mayaloka-hero__story .mayaloka-hero__heading { font-size: clamp(28px, 8vw, 34px); line-height: 1.08; margin-bottom: 12px; }
     .mayaloka-hero__story .mayaloka-hero__subtext { font-size: 13px; line-height: 1.45; margin-bottom: 14px; }
     .mayaloka-hero__collections { padding: 18px 16px 26px; }
-    .mayaloka-hero__mobile-ticker { display: block; background: var(--mayaloka-maroon); color: var(--mayaloka-gold-soft); overflow: hidden; white-space: nowrap; padding: 10px 0; border-block: 2px solid var(--mayaloka-gold); }
-    .mayaloka-hero__mobile-ticker-track { display: inline-flex; align-items: center; gap: 24px; animation: mayaloka-scroll-left 26s linear infinite; }
-    .mayaloka-hero__mobile-ticker-track span { font-family: var(--mayaloka-font-label); font-size: 10px; letter-spacing: .11em; text-transform: uppercase; }
     .mayaloka-hero__collection-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 10px; }
     .mayaloka-hero__collection,
     .mayaloka-hero__collection:nth-child(n + 3) { grid-column: span 1; }
     .mayaloka-hero__collection:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc((100% - 10px) / 2); justify-self: center; }
-    .mayaloka-hero__collection-image,
+    .mayaloka-hero__collection-gallery,
     .mayaloka-hero__collection-empty { height: auto; aspect-ratio: 4 / 3; border-radius: 10px; }
     .mayaloka-hero__collection-title { font-size: 13px; margin-top: 8px; }
     .mayaloka-hero--image {
       min-height: 640px;
     }
     .mayaloka-hero--split.mayaloka-hero--image { min-height: 0; }
-    .mayaloka-hero__mobile-ticker { display: block; }
 
     .mayaloka-hero--image .mayaloka-hero__frame {
       text-align: center;
@@ -450,7 +393,6 @@
       padding: 140px 22px 78px;
     }
 
-    .mayaloka-hero__frame-svg { display: none; }
   }
 
   /* Compact size: shorter hero so the collections show above the fold. */
@@ -487,15 +429,19 @@
     margin-bottom: 20px;
   }
 
-  @media (max-width: 1024px) {
-    .mayaloka-hero--split { display: block; min-height: 0; }
-    .mayaloka-hero__frame-svg { display: none !important; }
+  @media (max-width: 1190px) {
+    .mayaloka-hero--split,
+    .mayaloka-hero--split.mayaloka-hero--image { display: block; min-height: 0; }
     .mayaloka-hero__story { min-height: clamp(460px, 62svh, 560px); }
     .mayaloka-hero__story .mayaloka-hero__frame { padding: 52px 24px 28px; }
     .mayaloka-hero__story .mayaloka-hero__heading { font-size: clamp(32px, 5vw, 48px); }
     .mayaloka-hero__story .mayaloka-hero__subtext { font-size: 15px; line-height: 1.5; }
-    .mayaloka-hero__collections { padding: 24px; }
+    .mayaloka-hero__collections { padding: 24px; border-left: 0; }
+    .mayaloka-hero__mobile-ticker { display: block; background: var(--mayaloka-maroon); color: var(--mayaloka-gold-soft); overflow: hidden; white-space: nowrap; padding: 10px 0; border-block: 2px solid var(--mayaloka-gold); }
+    .mayaloka-hero__mobile-ticker-track { display: inline-flex; align-items: center; gap: 24px; animation: mayaloka-scroll-left 26s linear infinite; }
+    .mayaloka-hero__mobile-ticker-track span { font-family: var(--mayaloka-font-label); font-size: 10px; letter-spacing: .11em; text-transform: uppercase; }
   }
+  @media (prefers-reduced-motion: reduce) { .mayaloka-hero__mobile-ticker-track { animation: none; } }
 
   @media (max-width: 989px) {
     .mayaloka-hero--compact .mayaloka-hero__frame {
@@ -557,7 +503,6 @@
       "type": "text",
       "id": "heading",
       "label": "Heading (roman part)",
-      "default": "Every piece,"
     },
     {
       "type": "text",
@@ -569,7 +514,7 @@
       "type": "textarea",
       "id": "subtext",
       "label": "Subtext",
-      "default": "Curated anti-tarnish Jewel where every piece feels like a treasure discovered. Wrapped in nostalgia and modernity."
+      "default": "Where every piece feels like a treasure discovered. Wrapped in nostalgia and modernity."
     },
     {
       "type": "text",
@@ -597,7 +542,7 @@
       "type": "text",
       "id": "badge_text",
       "label": "Trust badge text",
-      "default": "Gold  ✦  Silver  ✦  Fashion Jewellery and more"
+      "default": "Fashion Jewellery and more"
     }
   ],
   "max_blocks": 5,

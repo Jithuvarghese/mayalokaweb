@@ -99,6 +99,9 @@
     color: var(--mayaloka-maroon);
   }
 
+  .mayaloka-label--bold { font-weight: 700; }
+  .mayaloka-label--prominent { font-size: 16px; font-weight: 700; letter-spacing: .12em; }
+
   .mayaloka-sec-head {
     text-align: center;
     max-width: 640px;
@@ -133,6 +136,14 @@
   .mayaloka-reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  @media (min-width: 750px) {
+    .mayaloka-section:has(.mayaloka-hero).mayaloka-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

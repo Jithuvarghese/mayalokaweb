@@ -9,7 +9,7 @@
   <div class="mayaloka-collections__wrap">
     <div class="mayaloka-sec-head">
       {% if label != blank %}
-        <span class="mayaloka-label">{{ label }}</span>
+        <span class="mayaloka-label{% if label == 'Jewellery' or label == 'Mombatti' %} mayaloka-label--prominent{% endif %}">{{ label }}</span>
       {% endif %}
       {% if heading != blank %}
         <h2>{{ heading }}</h2>
@@ -66,7 +66,7 @@
           <div class="mayaloka-coll-card__body">
             <h3>{% if product_details %}{{ product.title }}{% else %}{{ title }}{% endif %}</h3>
             {% if description != blank %}
-              <p>{{ description }}</p>
+          <p{% if description == 'Small pieces, unmistakable presence.' %} class="mayaloka-coll-card__description--bold"{% endif %}>{{ description }}</p>
             {% endif %}
             {% if product_details %}
               <span class="mayaloka-coll-card__price">{{ product.price | money }}</span>
@@ -167,7 +167,7 @@
 
   .mayaloka-coll-card__body h3 {
     font-family: var(--mayaloka-font-display);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 19px;
     margin: 0 0 6px;
     color: var(--mayaloka-ink);
@@ -178,6 +178,8 @@
     color: var(--mayaloka-ink-soft);
     margin: 0 0 12px;
   }
+
+  .mayaloka-coll-card__body p.mayaloka-coll-card__description--bold { font-weight: 700; }
 
   .mayaloka-coll-card__price {
     display: block;

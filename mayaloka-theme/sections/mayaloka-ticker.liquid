@@ -14,6 +14,8 @@
 </div>
 
 {% stylesheet %}
+  @media (max-width: 1190px) { .mayaloka-ticker { display: none; } }
+
   .mayaloka-ticker {
     background: var(--mayaloka-maroon);
     color: var(--mayaloka-gold-soft);
@@ -40,10 +42,6 @@
   @keyframes mayaloka-scroll-left {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
-  }
-
-  @media (max-width: 749px) {
-    .mayaloka-ticker { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -9,7 +9,7 @@
   <div class="mayaloka-craft__wrap">
     <div class="mayaloka-craft__head">
       {% if eyebrow != blank %}
-        <span class="mayaloka-label">{{ eyebrow }}</span>
+        <span class="mayaloka-label{% if eyebrow == 'The Mayaloka Standard' %} mayaloka-label--bold{% endif %}">{{ eyebrow }}</span>
       {% endif %}
       {% if heading != blank %}
         <h2>{{ heading }}</h2>
@@ -152,6 +152,7 @@
 
   .mayaloka-craft__card h3 {
     font-family: var(--mayaloka-font-label);
+    font-weight: 700;
     font-size: 14px;
     letter-spacing: .08em;
     text-transform: uppercase;

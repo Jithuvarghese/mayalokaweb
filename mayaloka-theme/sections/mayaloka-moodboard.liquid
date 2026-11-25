@@ -9,7 +9,7 @@
     {% if label != blank or heading != blank or subtext != blank %}
       <div class="mayaloka-sec-head">
         {% if label != blank %}
-          <span class="mayaloka-label">{{ label }}</span>
+          <span class="mayaloka-label{% if label == 'The Mood Board' %} mayaloka-label--prominent{% endif %}">{{ label }}</span>
         {% endif %}
         {% if heading != blank %}
           <h2>{{ heading }}</h2>

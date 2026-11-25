@@ -16,7 +16,7 @@
     <div class="mayaloka-testimonials__wrap">
       <div class="mayaloka-sec-head">
         {% if label != blank %}
-          <span class="mayaloka-label">{{ label }}</span>
+          <span class="mayaloka-label{% if label == 'Kind Words' %} mayaloka-label--prominent{% endif %}">{{ label }}</span>
         {% endif %}
         {% if heading != blank %}
           <h2>{{ heading }}</h2>
